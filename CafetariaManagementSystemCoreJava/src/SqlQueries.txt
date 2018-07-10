@@ -3,3 +3,9 @@ CREATE DATABASE cms
     OWNER = postgres
     ENCODING = 'UTF8'
     CONNECTION LIMIT = -1;
+    // Comment By shubham Employee table;
+     Create table Employee(
+    EIN varchar(10) PRIMARY KEY  NOT NULL,
+    E_Name varchar(30) NOT NULL,
+    Has_Opted varchar(1) NOT NULL,
+    Monthly_Food_Expenses Numeric(4));
