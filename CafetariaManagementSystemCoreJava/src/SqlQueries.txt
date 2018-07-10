@@ -9,3 +9,5 @@ CREATE DATABASE cms
     E_Name varchar(30) NOT NULL,
     Has_Opted varchar(1) NOT NULL,
     Monthly_Food_Expenses Numeric(4));
+    //Swechchha
+    CREATE TABLE Food_Item(Food_Id varchar(10) primary key,Food_Name varchar(30) not null,Category varchar(20) not null,Food_Quantity numeric(3) not null,Food_Price numeric(30) not null);
