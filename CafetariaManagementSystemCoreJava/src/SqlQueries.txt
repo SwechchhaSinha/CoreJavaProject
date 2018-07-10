@@ -76,6 +76,7 @@ CREATE TABLE Transaction(
 ----------------------------SWECHCHHA-------------------------------------------------------------------------------------------------
 
     CREATE TABLE Food_Item(Food_Id varchar(10) primary key,Food_Name varchar(30) not null,Category varchar(20) not null,Food_Quantity numeric(3) not null,Food_Price numeric(30) not null);
+    alter table Food_Item drop column Food_Price;
 insert into Food_Item values('F01','Potato','Vegetable','10');
 
 insert into Food_Item values('F02','Onion','Vegetable','10');
