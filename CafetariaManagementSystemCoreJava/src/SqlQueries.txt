@@ -20,6 +20,27 @@ Insert INTO Employee VALUES('YM_023','HIMANSHU BAWEJA','N','0');
 Insert INTO Employee VALUES('YM_021','SHUVAM PRAKASH','Y','0');;
 Insert INTO Employee VALUES('YM_022','ABHIMANYU PRABHAKAR','Y','0');
 Insert INTO Employee VALUES('YM_030','MANSI PRIYA','Y','0');
+
+---------------Menu By Shubham----------------------------------------------------------------------------------------------------------
+Create table Menu(
+Menu_Day varchar(10) Primary key Not null,
+Dish_1 varchar(30) Not null,
+Dish_2 varchar(30) Not null,
+Dish_3 varchar(30) Not null,
+Dish_4 varchar(30) Not null,
+Dish_5 varchar(30) Not null,
+Dish_6 varchar(30) Not null,
+Dish_7 varchar(30) ,
+Dish_8 varchar(30) );
+
+
+
+-----------------------INSERT FOR MENU--------------------------------------------------------------------------------------------------
+Insert INTO Menu VALUES('Day 1','Chapati','Rice','Moong Daal','Soya Chaap','Salad','Raita',null,null);
+Insert INTO Menu VALUES('Day 2','Chapati','Rice','Aloo Shimlamirch','Rajma','Salad','Raita',null,null);
+Insert INTO Menu VALUES('Day 3','Chapati','Rice','Karela','Kheer','Salad','Raita','Chana Daal',null);
+Insert INTO Menu VALUES('Day 4','Chapati','Rice','Bhindi','Daal Makhni','Salad','Raita','Macroni',null);
+Insert INTO Menu VALUES('Day 5','Chapati','Rice','Tinde','Dhuli Udhah Daal','Salad','Raita','Shahi Paneer',null);
 ----------------------------------------------------------------------------------------------------------------------------------------
 ----------------------------RAHUL-------------------------------------------------------------------------------------------------
    
