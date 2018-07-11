@@ -93,6 +93,13 @@ CREATE TABLE Transaction(
 	Total_Price numeric(4,2) NOT NUll
 	
 );
+
+
+-----------11th july category added to AddOn table------------------------
+Alter table AddOn add column Category varchar(20);
+
+update AddOn set Category='Beverage' where addonid like 'B%';
+update AddOn set Category='Ice Cream' where addonid like 'I%';
 -------------------------------------------------------------------------------------------------------------------------------------
 ----------------------------SWECHCHHA-------------------------------------------------------------------------------------------------
 
