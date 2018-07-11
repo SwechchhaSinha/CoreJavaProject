@@ -46,6 +46,23 @@ Insert INTO Menu VALUES('Day 3','Chapati','Rice','Karela','Kheer','Salad','Raita
 Insert INTO Menu VALUES('Day 4','Chapati','Rice','Bhindi','Daal Makhni','Salad','Raita','Macroni',null);
 Insert INTO Menu VALUES('Day 5','Chapati','Rice','Tinde','Dhuli Udhah Daal','Salad','Raita','Shahi Paneer',null);
 ----------------------------------------------------------------------------------------------------------------------------------------
+
+Alter table employee
+ Alter table employee add column Password  varchar(30);
+ 
+Update emp table
+update  employee set password='swechchha_96' where ein='ym014';
+update  employee set password='rahul_96' where ein='ym016';
+update  employee set password='kanishka_96' where ein='ym018';
+update  employee set password='balraj_96' where ein='ym011';
+update  employee set password='vivek_96' where ein='ym017';
+update  employee set password='himanshu_96' where ein='ym023';
+update  employee set password='shuvam_96' where ein='ym021';
+update  employee set password='abhimanyu_96' where ein='ym022';
+update  employee set password='mansi_96' where ein='ym030';
+update  employee set password='shubham_96' where ein='ym019';
+
+----------------------------------------------------------------------------------------------------------------------------------------
 ----------------------------RAHUL-------------------------------------------------------------------------------------------------
    
     
