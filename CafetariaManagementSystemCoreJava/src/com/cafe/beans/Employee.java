@@ -4,14 +4,14 @@ public class Employee
 {
 	private String EIN;
 	private String employeeName;
-	private char hasOpted;
+	private String hasOpted;
 	private int monthlyFoodExpense;
 	private String password;
 	public Employee()
 	{
 		
 	}
-	public Employee(String eIN, String employeeName, char hasOpted, int monthlyFoodExpense, String password) {
+	public Employee(String eIN, String employeeName, String hasOpted, int monthlyFoodExpense, String password) {
 		super();
 		EIN = eIN;
 		this.employeeName = employeeName;
@@ -36,10 +36,10 @@ public class Employee
 	public void setEmployeeName(String employeeName) {
 		this.employeeName = employeeName;
 	}
-	public char getHasOpted() {
+	public String getHasOpted() {
 		return hasOpted;
 	}
-	public void setHasOpted(char hasOpted) {
+	public void setHasOpted(String hasOpted) {
 		this.hasOpted = hasOpted;
 	}
 	public int getMonthlyFoodExpense() {
