@@ -2,12 +2,12 @@ package com.cafe.beans;
 
 public class AddOn {
 	private int addOnId, addOnPrice, addOnQuantity;
-	private String addOnName;
+	private String addOnName, addOnCategory;
 	
 	public AddOn(){
 		
 	}
-	public AddOn(int addOnId, int addOnPrice, int addOnQuantity, String addOnName) {
+	public AddOn(int addOnId, int addOnPrice, int addOnQuantity, String addOnName, String addOnCategory) {
 		super();
 		this.addOnId = addOnId;
 		this.addOnPrice = addOnPrice;
@@ -38,11 +38,18 @@ public class AddOn {
 	public void setAddOnName(String addOnName) {
 		this.addOnName = addOnName;
 	}
+	public String getAddOnCategory() {
+		return addOnCategory;
+	}
+	public void setAddOnCategory(String addOnCategory) {
+		this.addOnCategory = addOnCategory;
+	}
 	@Override
 	public String toString() {
 		return "AddOn [addOnId=" + addOnId + ", addOnPrice=" + addOnPrice + ", addOnQuantity=" + addOnQuantity
-				+ ", addOnName=" + addOnName + "]";
+				+ ", addOnName=" + addOnName + ", addOnCategory=" + addOnCategory + "]";
 	}
+	
 	
 	
 }
