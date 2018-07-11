@@ -22,7 +22,7 @@ public class Employee
 	@Override
 	public String toString() {
 		return "Employee [EIN=" + EIN + ", employeeName=" + employeeName + ", hasOpted=" + hasOpted
-				+ ", monthlyFoodExpense=" + monthlyFoodExpense + ", password=" + password + "]";
+				+ ", monthlyFoodExpense=" + monthlyFoodExpense  +"]";
 	}
 	public String getEIN() {
 		return EIN;
