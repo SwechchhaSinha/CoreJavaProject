@@ -1,5 +1,103 @@
+<<<<<<< HEAD
 CREATE DATABASE CMS
+=======
+----------------------------SHUBHAM-------------------------------------------------------------------------------------------------
+CREATE DATABASE cms
+>>>>>>> refs/remotes/origin/master
     WITH 
     OWNER = postgres
     ENCODING = 'UTF8'
     CONNECTION LIMIT = -1;
+    // Comment By shubham Employee table;
+     Create table Employee(
+    EIN varchar(10) PRIMARY KEY  NOT NULL,
+    E_Name varchar(30) NOT NULL,
+    Has_Opted varchar(1) NOT NULL,
+    Monthly_Food_Expenses Numeric(4));
+Insert INTO Employee VALUES('YM_019','SHUBHAM GUPTA','Y','0');
+Insert INTO Employee VALUES('YM_016','RAHUL MIDHA','N','0');
+Insert INTO Employee VALUES('YM_014','SWECHCHHA SINHA','Y','0');
+Insert INTO Employee VALUES('YM_018','KANISHKA BAJAJ','N','0');
+Insert INTO Employee VALUES('YM_011','BALRAJ SINGH','Y','0');
+Insert INTO Employee VALUES('YM_017','VIVEK UNIYAL','Y','0');
+Insert INTO Employee VALUES('YM_023','HIMANSHU BAWEJA','N','0');
+Insert INTO Employee VALUES('YM_021','SHUVAM PRAKASH','Y','0');;
+Insert INTO Employee VALUES('YM_022','ABHIMANYU PRABHAKAR','Y','0');
+Insert INTO Employee VALUES('YM_030','MANSI PRIYA','Y','0');
+
+---------------Menu By Shubham----------------------------------------------------------------------------------------------------------
+Create table Menu(
+Menu_Day varchar(10) Primary key Not null,
+Dish_1 varchar(30) Not null,
+Dish_2 varchar(30) Not null,
+Dish_3 varchar(30) Not null,
+Dish_4 varchar(30) Not null,
+Dish_5 varchar(30) Not null,
+Dish_6 varchar(30) Not null,
+Dish_7 varchar(30) ,
+Dish_8 varchar(30) );
+
+
+
+-----------------------INSERT FOR MENU--------------------------------------------------------------------------------------------------
+Insert INTO Menu VALUES('Day 1','Chapati','Rice','Moong Daal','Soya Chaap','Salad','Raita',null,null);
+Insert INTO Menu VALUES('Day 2','Chapati','Rice','Aloo Shimlamirch','Rajma','Salad','Raita',null,null);
+Insert INTO Menu VALUES('Day 3','Chapati','Rice','Karela','Kheer','Salad','Raita','Chana Daal',null);
+Insert INTO Menu VALUES('Day 4','Chapati','Rice','Bhindi','Daal Makhni','Salad','Raita','Macroni',null);
+Insert INTO Menu VALUES('Day 5','Chapati','Rice','Tinde','Dhuli Udhah Daal','Salad','Raita','Shahi Paneer',null);
+----------------------------------------------------------------------------------------------------------------------------------------
+----------------------------RAHUL-------------------------------------------------------------------------------------------------
+   
+    
+ --RAHUL's addon queries
+ CREATE TABLE AddOn(
+	AddOnId VARCHAR(10) PRIMARY KEY NOT NULL,
+	AddOnName VARCHAR(30) NOT NULL,
+	AddOnPrice NUMERIC(3) NOT NULL,
+	AddOnQuantity NUMERIC(3) NOT NULL
+);
+
+INSERT INTO AddOn VALUES('I01','Vanilla Ice cream',20 , 15);
+INSERT INTO AddOn VALUES('I02','Strawberry Ice cream', 25, 13);
+INSERT INTO AddOn VALUES('I03','Butterscotch Ice cream', 30, 17);
+INSERT INTO AddOn VALUES('I04','Blackcurrent Ice cream', 30, 20);
+INSERT INTO AddOn VALUES('I05','Mango Ice cream', 25, 7);
+INSERT INTO AddOn VALUES('B01','Limca',10 ,8 );
+INSERT INTO AddOn VALUES('B02','Coke', 10, 6);
+INSERT INTO AddOn VALUES('B03','Maaza', 12, 9);
+INSERT INTO AddOn VALUES('B04','Fanta', 10, 10);
+INSERT INTO AddOn VALUES('B05','Sprite', 10, 7);
+
+
+CREATE TABLE Transaction(
+	Transaction_Date date NOT NULL,
+	Food_Id varchar(10) references Food_Item(Food_Id ) NOT NULL,
+	Food_Quantity numeric(2) NOT NULL,
+	Total_Price numeric(4,2) NOT NUll
+	
+);
+-------------------------------------------------------------------------------------------------------------------------------------
+----------------------------SWECHCHHA-------------------------------------------------------------------------------------------------
+
+    CREATE TABLE Food_Item(Food_Id varchar(10) primary key,Food_Name varchar(30) not null,Category varchar(20) not null,Food_Quantity numeric(3) not null,Food_Price numeric(30) not null);
+    alter table Food_Item drop column Food_Price;
+insert into Food_Item values('F01','Potato','Vegetable','10');
+
+insert into Food_Item values('F02','Onion','Vegetable','10');
+
+insert into Food_Item values('F03','Rice','Grains','50');
+
+insert into Food_Item values('F04','Mung_Dal','Grains','50');
+insert into Food_Item values('F05','Turmeric','Spices','2');
+
+insert into Food_Item values('F06','Salt','Spices','10');
+
+insert into Food_Item values('F07','Brinjal','Vegetable','10');
+
+insert into Food_Item values('F08','Pumpkin','Vegetable','10');
+
+insert into Food_Item values('F09','Bitter_gourd','Vegetable','10');
+
+insert into Food_Item values('F10','Rajma','Grains','10');
+    
+
