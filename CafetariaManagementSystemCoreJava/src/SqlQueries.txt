@@ -1,4 +1,4 @@
-CREATE DATABASE cms
+CREATE DATABASE CMS
     WITH 
     OWNER = postgres
     ENCODING = 'UTF8'
