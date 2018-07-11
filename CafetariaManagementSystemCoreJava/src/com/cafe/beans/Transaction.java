@@ -1,6 +1,6 @@
 package com.cafe.beans;
 
-public class transaction 
+public class Transaction 
 {
 	private String date , trasaction_id;
 	private int quantity,price;
@@ -33,7 +33,7 @@ public class transaction
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	public transaction(String date, String trasaction_id, int quantity, int price) {
+	public Transaction(String date, String trasaction_id, int quantity, int price) {
 		super();
 		this.date = date;
 		this.trasaction_id = trasaction_id;
