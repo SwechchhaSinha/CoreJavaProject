@@ -1,23 +1,24 @@
 package com.cafe.beans;
 
 public class AddOn {
-	private int addOnId, addOnPrice, addOnQuantity;
-	private String addOnName, addOnCategory;
+	private String addOnId, addOnName, addOnCategory;;
+	private int addOnPrice, addOnQuantity;
+	
 	
 	public AddOn(){
 		
 	}
-	public AddOn(int addOnId, int addOnPrice, int addOnQuantity, String addOnName, String addOnCategory) {
+	public AddOn(String addOnId, String addOnName,int addOnPrice, int addOnQuantity,  String addOnCategory) {
 		super();
 		this.addOnId = addOnId;
 		this.addOnPrice = addOnPrice;
 		this.addOnQuantity = addOnQuantity;
 		this.addOnName = addOnName;
 	}
-	public int getAddOnId() {
+	public String getAddOnId() {
 		return addOnId;
 	}
-	public void setAddOnId(int addOnId) {
+	public void setAddOnId(String addOnId) {
 		this.addOnId = addOnId;
 	}
 	public int getAddOnPrice() {

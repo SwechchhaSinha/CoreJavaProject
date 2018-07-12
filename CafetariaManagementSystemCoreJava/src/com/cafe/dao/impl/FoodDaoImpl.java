@@ -55,7 +55,7 @@ public class FoodDaoImpl implements FoodDao {
 	public Food searchFood(String food_id) throws ClassNotFoundException, SQLException {
 		Connection conn = ConnectionHelper.getConnection();
 		PreparedStatement statement = conn.prepareStatement("Select * from food_item where food_id=?");
-		statement.setString(0, food_id);
+		statement.setString(1, food_id);
 		Food food = null;
 		ResultSet rs = statement.executeQuery();
 		while (rs.next()) {
