@@ -2,11 +2,11 @@ package com.cafe.beans;
 
 public class Transaction 
 {
-	private String date , trasaction_id;
+	private String date , food_id;
 	private int quantity,price;
 	@Override
 	public String toString() {
-		return "transaction [date=" + date + ", trasaction_id=" + trasaction_id + ", quantity=" + quantity + ", price="
+		return "transaction [date=" + date + ", food_id=" + food_id + ", quantity=" + quantity + ", price="
 				+ price + "]";
 	}
 	public String getDate() {
@@ -15,11 +15,11 @@ public class Transaction
 	public void setDate(String date) {
 		this.date = date;
 	}
-	public String getTrasaction_id() {
-		return trasaction_id;
+	public String getFood_id() {
+		return food_id;
 	}
 	public void setTrasaction_id(String trasaction_id) {
-		this.trasaction_id = trasaction_id;
+		this.food_id = trasaction_id;
 	}
 	public int getQuantity() {
 		return quantity;
@@ -36,7 +36,7 @@ public class Transaction
 	public Transaction(String date, String trasaction_id, int quantity, int price) {
 		super();
 		this.date = date;
-		this.trasaction_id = trasaction_id;
+		this.food_id = trasaction_id;
 		this.quantity = quantity;
 		this.price = price;
 	}
