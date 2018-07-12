@@ -1,12 +1,15 @@
 package com.cafe.dao;
 
+import java.sql.SQLException;
+
 import com.cafe.beans.Food;
+import com.cafe.beans.Menu;
 
 public interface MenuDao 
 {
-	boolean insertFood(Food food);
-	boolean updateFood(Food food);
-	Food searchFood(String day);
+	boolean insertMenu(Menu menu) throws ClassNotFoundException, SQLException;
+	boolean updateMenu(Menu menu) throws ClassNotFoundException, SQLException;
+	Menu searchMenu(String day) throws ClassNotFoundException, SQLException;
 	
 	
 
