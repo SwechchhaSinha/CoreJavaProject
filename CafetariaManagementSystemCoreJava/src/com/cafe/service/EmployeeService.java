@@ -11,7 +11,9 @@ public interface EmployeeService
 	public void displayMenu(String employeeId) throws ClassNotFoundException, SQLException;
 	public void signupEmployee(Employee employee) throws ClassNotFoundException, SQLException;
 
-	
+	//rahul's:
+	public void generateReceiptNo(String ein) throws ClassNotFoundException, SQLException;
+	public void totalMonthlyExpense(String ein)throws ClassNotFoundException, SQLException;
 }
 /*
  * 

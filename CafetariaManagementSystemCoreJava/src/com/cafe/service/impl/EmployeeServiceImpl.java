@@ -8,8 +8,9 @@ import com.cafe.beans.Employee;
 import com.cafe.beans.Menu;
 import com.cafe.dao.impl.EmployeeDaoImpl;
 import com.cafe.dao.impl.MenuDaoImpl;
+import com.cafe.service.EmployeeService;
 
-public class EmployeeServiceImpl {
+public class EmployeeServiceImpl implements EmployeeService {
 	
 	public void displayMenu(String employeeId) throws ClassNotFoundException, SQLException
 	{
@@ -45,5 +46,16 @@ public class EmployeeServiceImpl {
 		{
 			//error message
 		}
+	}
+	///Rahul's 
+	EmployeeDaoImpl employeeDaoImpl = new EmployeeDaoImpl();
+	static int receiptNo = 0;
+	public void generateReceiptNo(String ein) throws ClassNotFoundException, SQLException{
+//		Employee currentEmployee= employeeDaoImpl.searchEmployee(ein);
+		System.out.println("Thank you for coming! Your Receipt no. is: " +  ++receiptNo);
+	}
+	public void totalMonthlyExpense(String ein) throws ClassNotFoundException, SQLException{
+		Employee currentEmployee= employeeDaoImpl.searchEmployee(ein);
+		employeeDaoImpl.updateEmployee(ein, currentEmployee.getMonthlyFoodExpense());
 	}
 }
