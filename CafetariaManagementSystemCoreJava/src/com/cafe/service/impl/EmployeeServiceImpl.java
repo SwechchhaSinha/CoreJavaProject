@@ -12,6 +12,7 @@ import com.cafe.helper.LoginHelper;
 import com.cafe.service.EmployeeService;
 
 public class EmployeeServiceImpl implements EmployeeService {
+	EmployeeDaoImpl employeeDaoImpl=new EmployeeDaoImpl();
 	@Override
 	public boolean Login(String employeeEin, String password) 
 			throws ClassNotFoundException, SQLException
@@ -23,7 +24,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public Employee searchEmployee(String employeeId) throws ClassNotFoundException, SQLException
 	{
-		EmployeeDaoImpl employeeDaoImpl=new EmployeeDaoImpl();
+		
 		Employee employee=employeeDaoImpl.searchEmployee(employeeId);
 		if(employee==null)
 			return null;
@@ -33,7 +34,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public Menu displayMenu(String employeeId) throws ClassNotFoundException, SQLException
 	{
-		EmployeeDaoImpl employeeDaoImpl=new EmployeeDaoImpl();
+		//EmployeeDaoImpl employeeDaoImpl=new EmployeeDaoImpl();
 		Employee employee=new Employee();
 		employee=employeeDaoImpl.searchEmployee(employeeId);
 		Menu menu=new Menu();
@@ -47,7 +48,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public boolean signupEmployee(Employee employee) throws ClassNotFoundException, SQLException
 	{
-		EmployeeDaoImpl employeeDaoImpl=new EmployeeDaoImpl();
+		//EmployeeDaoImpl employeeDaoImpl=new EmployeeDaoImpl();
 		Employee myEmployee=new Employee();
 		myEmployee=employeeDaoImpl.searchEmployee(employee.getEIN());
 		if(myEmployee==null)
@@ -62,7 +63,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		}
 	}
 	///Rahul's 
-		EmployeeDaoImpl employeeDaoImpl = new EmployeeDaoImpl();
+		//EmployeeDaoImpl employeeDaoImpl = new EmployeeDaoImpl();
 		static int receiptNo = 0;
 		public void generateReceiptNo(String ein) throws ClassNotFoundException, SQLException{
 //			Employee currentEmployee= employeeDaoImpl.searchEmployee(ein);
