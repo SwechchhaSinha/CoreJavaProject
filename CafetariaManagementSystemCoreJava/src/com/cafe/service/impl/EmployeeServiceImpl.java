@@ -76,14 +76,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 			return false;
 		}
 	}
-	@Override
-	public void generateReceiptNo(String ein) throws ClassNotFoundException, SQLException {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void totalMonthlyExpense(String ein) throws ClassNotFoundException, SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+	///Rahul's 
+		EmployeeDaoImpl employeeDaoImpl = new EmployeeDaoImpl();
+		static int receiptNo = 0;
+		public void generateReceiptNo(String ein) throws ClassNotFoundException, SQLException{
+//			Employee currentEmployee= employeeDaoImpl.searchEmployee(ein);
+			System.out.println("Thank you for coming! Your Receipt no. is: " +  ++receiptNo);
+		}
+		public void totalMonthlyExpense(String ein) throws ClassNotFoundException, SQLException{
+			Employee currentEmployee= employeeDaoImpl.searchEmployee(ein);
+			employeeDaoImpl.updateEmployee(ein, currentEmployee.getMonthlyFoodExpense());
+		} 
 }
