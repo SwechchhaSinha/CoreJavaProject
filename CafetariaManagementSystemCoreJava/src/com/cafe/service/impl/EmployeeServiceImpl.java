@@ -8,9 +8,27 @@ import com.cafe.beans.Employee;
 import com.cafe.beans.Menu;
 import com.cafe.dao.impl.EmployeeDaoImpl;
 import com.cafe.dao.impl.MenuDaoImpl;
+import com.cafe.helper.LoginHelper;
+import com.cafe.service.EmployeeService;
+import com.cafe.ui.impl.InitialUserInterfaceImpl;
 
-public class EmployeeServiceImpl {
-	
+public class EmployeeServiceImpl implements EmployeeService {
+	public boolean Login(String employeeEin, String password) 
+			throws ClassNotFoundException, SQLException
+	{
+		LoginHelper login=new LoginHelper();
+		boolean ans=login.Login(employeeEin, password);
+		return ans;
+	}
+	public boolean searchEmployee(String employeeId) throws ClassNotFoundException, SQLException
+	{
+		EmployeeDaoImpl employeeDaoImpl=new EmployeeDaoImpl();
+		Employee employee=employeeDaoImpl.searchEmployee(employeeId);
+		if(employee==null)
+			return true;
+		else
+			return false;
+	}
 	public void displayMenu(String employeeId) throws ClassNotFoundException, SQLException
 	{
 		EmployeeDaoImpl employeeDaoImpl=new EmployeeDaoImpl();
@@ -24,15 +42,25 @@ public class EmployeeServiceImpl {
 		menu=menuDaoImpl.searchMenu(day);
 		if(employee.getHasOpted().equalsIgnoreCase("y"))
 		{
-			
-			//Create Display Menu Function;
+			InitialUserInterfaceImpl initialUserInterfaceImpl=new InitialUserInterfaceImpl();
+			initialUserInterfaceImpl.displayMenu(menu);
 		}
 		if(employee.getHasOpted().equalsIgnoreCase("n"))
 		{
-			// Create Display Menu Function with do you want to opt??
+			InitialUserInterfaceImpl initialUserInterfaceImpl=new InitialUserInterfaceImpl();
+			initialUserInterfaceImpl.displayMenu(menu);
+			int choice=initialUserInterfaceImpl.wantToOpt();
+			if(choice==1)
+			{
+				//Generate Receipt
+			}
+			else
+			{
+				//System.exit();
+			}
 		}
 	}
-	public void signupEmployee(Employee employee) throws ClassNotFoundException, SQLException
+	public boolean signupEmployee(Employee employee) throws ClassNotFoundException, SQLException
 	{
 		EmployeeDaoImpl employeeDaoImpl=new EmployeeDaoImpl();
 		Employee myEmployee=new Employee();
@@ -40,10 +68,12 @@ public class EmployeeServiceImpl {
 		if(myEmployee==null)
 		{
 			employeeDaoImpl.insertEmployee(employee);
+			return true;
 		}
 		else
 		{
 			//error message
+			return false;
 		}
 	}
 }
