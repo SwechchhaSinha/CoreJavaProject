@@ -12,6 +12,7 @@ import com.cafe.ui.InitialUserInterfcae;
 
 public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 
+	Employee employee=new Employee();
 	private EmployeeServiceImpl employeeServiceImpl = new EmployeeServiceImpl();
 	@Override
 	public void displayInitialMenu() {
@@ -29,7 +30,7 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 		}
 
 	}
-
+	@Override
 	public void performMyAction(int choice) {
 		Scanner scan = new Scanner(System.in);
 		
@@ -40,40 +41,44 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 			ein = scan.next();
 			password = scan.next();
 			try {
-				employeeServiceImpl.Login(ein, password);
+				Boolean correctLoginCredentials=employeeServiceImpl.Login(ein, password);
+				if(ein.equals("admin") && correctLoginCredentials)
+				{
+					afterCorrectCredentials();
+					displayMenuForStock();
+				}
+				else if(correctLoginCredentials)
+				{
+					Menu menu=employeeServiceImpl.displayMenu(ein);
+					employee=employeeServiceImpl.searchEmployee(ein);
+					afterCorrectCredentials();
+					displayMenu(menu,employee.getHasOpted());
+				}
+				else
+				{
+					displayWrongCredentials();
+					displayInitialMenu();
+				}
 			} catch (ClassNotFoundException | SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		//case 2:
-//			System.out.println("Enter your login credentials");
-//			ein = scan.next();
-//			password = scan.next();
-//			try {
-//				LoginHelper loginHelper = new LoginHelper();
-//				loginHelper.LoginForStock(ein, password);
-//
-//			} catch (ClassNotFoundException | SQLException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
 		case 2:
-			boolean status = false;
 			System.out.println("To Sign Up please enter your EIN");
 			ein = scan.next();
 			try {
-				status = employeeServiceImpl.searchEmployee(ein);
+				employee = employeeServiceImpl.searchEmployee(ein);
 			} catch (ClassNotFoundException | SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			if(status)
+			if(employee==null)
 				{
 				
-					Employee employee=new Employee();
-					employee.setEIN(ein);
+					Employee emp=new Employee();
+					emp.setEIN(ein);
 					System.out.println("Please enter your name");
-					employee.setEmployeeName(scan.next());
+					emp.setEmployeeName(scan.next());
 					System.out.println("Please enter yes and no for not opting the food");
 					String str=scan.next();
 					if(str.equalsIgnoreCase("yes"))
@@ -85,13 +90,13 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 						System.out.println("You have entered wrong choice!! Start over!!");
 						displayInitialMenu();
 					}
-					employee.setHasOpted(str);
-					employee.setMonthlyFoodExpense(0);
+					emp.setHasOpted(str);
+					emp.setMonthlyFoodExpense(0);
 					System.out.println("Please create a password for your account");
 					password=scan.next();
-					employee.setPassword(password);
+					emp.setPassword(password);
 					try {
-						boolean ans=employeeServiceImpl.signupEmployee(employee);
+						boolean ans=employeeServiceImpl.signupEmployee(emp);
 						if(ans)
 							System.out.println("Successfully Created Account");
 							System.out.println("Start your first session ");
@@ -104,27 +109,35 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 				}
 			else
 			{
-				System.out.println("This EIN already exist! Please enter correct EIN!!");
+				System.out.println("This EIN already exist! Please login!!");
 				displayInitialMenu();
 			}
 		case 3: System.exit(0);
 		default: System.out.println("You have entered a wrong choice");
 		}
 	}
-
+	@Override
 	public void displayWrongCredentials() {
 		System.out.println("Wrong Login Credentials");
 	}
-
+	@Override
 	public void afterCorrectCredentials() {
 		System.out.println("You have successfully entered login Credentials");
 
 	}
-
-	public void displayMenu(Menu menu) {
+	@Override
+	public void displayMenu(Menu menu,String str) {
 		System.out.println(menu);
+		if(str.equals("y"))
+		{
+			
+		}
+		else
+		{
+			wantToOpt();
+		}
 	}
-
+	@Override
 	public int wantToOpt() {
 		int choice = 0;
 		Scanner scan = new Scanner(System.in);
@@ -137,7 +150,7 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 		scan.close();
 		return choice;
 	}
-
+@Override
 	public void displayMenuForStock() {
 		System.out.println("Welcome to the cafeteria management system");
 		System.out.println("Press 1 to see whole stock");
