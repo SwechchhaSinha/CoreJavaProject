@@ -76,4 +76,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 			return false;
 		}
 	}
+	@Override
+	public void generateReceiptNo(String ein) throws ClassNotFoundException, SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void totalMonthlyExpense(String ein) throws ClassNotFoundException, SQLException {
+		// TODO Auto-generated method stub
+		
+	}
 }

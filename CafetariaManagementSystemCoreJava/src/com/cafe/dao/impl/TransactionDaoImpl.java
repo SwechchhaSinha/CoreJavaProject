@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.cafe.beans.Food;
 import com.cafe.beans.Transaction;
@@ -33,11 +35,12 @@ public class TransactionDaoImpl implements TransactionDao{
 	
 
 	@Override
-	public Transaction searchtransaction(String transaction_date) throws ClassNotFoundException, SQLException {
+	public ArrayList<Transaction> searchTransaction(String transaction_date) throws ClassNotFoundException, SQLException {
 		Connection conn = ConnectionHelper.getConnection();
 		PreparedStatement statement = conn.prepareStatement("Select * from transaction where transaction_date=?");
 		statement.setString(0, transaction_date);
 		Transaction transaction = null;
+		ArrayList<Transaction> transactions=new ArrayList<>();
 		ResultSet rs = statement.executeQuery();
 		while (rs.next()) {
 			String foodId = rs.getString(2);
@@ -45,9 +48,10 @@ public class TransactionDaoImpl implements TransactionDao{
 			int totalPrice=rs.getInt(4);
 
 			transaction = new Transaction(transaction_date,foodId,foodQuantity,totalPrice);
-
+			transactions.add(transaction);
+			
 		}
-		return transaction;
+		return transactions;
 	}
 
 }

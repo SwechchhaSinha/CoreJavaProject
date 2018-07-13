@@ -76,11 +76,11 @@ public class EmployeeDaoImpl implements EmployeeDao{
 	}
 
 	@Override
-	public boolean updateEmployee(String ein, String value) throws SQLException, ClassNotFoundException {
+	public boolean updateEmployee(String ein, String hasOpted) throws SQLException, ClassNotFoundException {
 		Connection conn=ConnectionHelper.getConnection();
 		PreparedStatement statement=conn.prepareStatement("update  employee set has_opted=? where ein=?");
 	
-		statement.setString(2, value);
+		statement.setString(2, hasOpted);
 		statement.setString(3, ein);
 		int rows=statement.executeUpdate();
 		
