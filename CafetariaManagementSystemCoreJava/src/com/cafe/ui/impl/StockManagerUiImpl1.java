@@ -41,15 +41,12 @@ public class StockManagerUiImpl1 {
 		System.out.println("Enter the quantity");
 		int quantity=sc.nextInt();
 		try {
-			status=menuServiceImpl.outputStock(fId, quantity);
+			System.out.println(menuServiceImpl.outputStock(fId, quantity));
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if(status==true)
-			System.out.println("Take the stock");
-		else 
-			System.out.println("Not possible!!");
+		
 		
 		
 	}
