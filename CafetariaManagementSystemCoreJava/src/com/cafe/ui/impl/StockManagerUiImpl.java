@@ -1,0 +1,96 @@
+package com.cafe.ui.impl;
+
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Scanner;
+
+import com.cafe.beans.Food;
+import com.cafe.service.impl.StockManagerServiceImpl;
+import com.cafe.ui.StockManagerUi;
+
+public class StockManagerUiImpl implements StockManagerUi {
+	Scanner sc = new Scanner(System.in);
+	StockManagerServiceImpl stockManagerServiceImpl = new StockManagerServiceImpl();
+	@Override
+	public void displayStock() throws ClassNotFoundException, SQLException {
+		
+		System.out.println("1. All \n 2. Categorywise");
+		int choice = sc.nextInt();
+		switch(choice){
+		case 1:
+			stockManagerServiceImpl.displayFood();
+			break;
+		case 2:
+			System.out.println("Enter categroy: ");
+			String category = sc.next();
+			stockManagerServiceImpl.displayFood(category);
+			break;
+		default:
+			System.out.println("Please enter the right choice.");
+		}
+		
+	}
+	public void updateStock() throws ClassNotFoundException, SQLException{
+		System.out.println("1. Insert new stock"
+				+ "2. Update Existing stock"
+				+ "3. Delete Existing stock");
+		int choice = sc.nextInt();
+		boolean status = false;
+		switch(choice){
+			case 1:
+				System.out.println("Enter Food_Id");
+				String fId = sc.next();
+				System.out.println("Enter food name");
+				String fName  = sc.nextLine();
+				System.out.println("Enter food category");
+				String fCategory = sc.next();
+				System.out.println("Enter food quantity");
+				int fQty = sc.nextInt();
+				Food food = new Food(fId, fName, fCategory, fQty);
+				System.out.println("Enter price: ");
+				int fPrice = sc.nextInt();
+				System.out.println("Enter date in yyyy-mm-dd");
+				String fDate = sc.next();
+				status = stockManagerServiceImpl.inputStock(food, fPrice, fDate);
+				if(status)
+					System.out.println("Stock inserted successfully");
+				else
+					System.out.println("Stock not inserted; Check your details again");
+				break;				
+			case 2:
+				System.out.println("Enter Food_Id");
+				fId = sc.next();
+				System.out.println("Enter food quantity");
+				fQty = sc.nextInt();
+				System.out.println("Enter price: ");
+				fPrice = sc.nextInt();
+				System.out.println("Enter date in yyyy-mm-dd");
+				fDate = sc.next();
+				status = stockManagerServiceImpl.updateStock(fId, fQty, fPrice, fDate);
+				if(status)
+					System.out.println("Stock updated successfully");
+				else
+					System.out.println("Stock not updated; Check your details again.");
+				break;
+			case 3:
+				System.out.println("Enter Food_Id");
+				fId = sc.next();
+//				status = smsi.deleteStock(fId); under construction
+				if(status)
+					System.out.println("Stock deleted successfully");
+				else
+					System.out.println("Stock not deleted; Check your Food_Id again");
+				break;
+			default:
+				System.out.println("Invalid choice ");
+				
+		}
+		
+	}
+	public void generateReport() throws ClassNotFoundException, SQLException, IOException{
+		System.out.println("Enter date in yyyy-mm-dd");
+		String fDate = sc.next();
+		stockManagerServiceImpl.generateReport(fDate);
+	}
+
+}
