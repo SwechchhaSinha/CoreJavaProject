@@ -24,14 +24,14 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 		Scanner scan = new Scanner(System.in);
 		try {
 			choice = scan.nextInt();
-			performMyAction(choice);
+			performInitialAction(choice);
 		} catch (InputMismatchException excep) {
 			System.out.println("Please enter a valid input");
 		}
 
 	}
 	@Override
-	public void performMyAction(int choice) {
+	public void performInitialAction(int choice) {
 		Scanner scan = new Scanner(System.in);
 		
 		String ein, password;

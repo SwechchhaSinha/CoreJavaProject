@@ -5,7 +5,7 @@ import com.cafe.beans.Menu;
 public interface InitialUserInterfcae
 {
 	public void displayInitialMenu();
-	public void performMyAction(int choice);
+	public void performInitialAction(int choice);
 	void displayMenuForStock();
 	int wantToOpt();
 	void displayMenu(Menu menu, String str);
