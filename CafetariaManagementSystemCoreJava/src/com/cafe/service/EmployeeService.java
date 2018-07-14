@@ -4,16 +4,19 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.cafe.beans.Employee;
+import com.cafe.beans.Menu;
 
 public interface EmployeeService
 {
 	
-	public void displayMenu(String employeeId) throws ClassNotFoundException, SQLException;
+	public Menu displayMenu(String employeeId) throws ClassNotFoundException, SQLException;
 	public boolean signupEmployee(Employee employee) throws ClassNotFoundException, SQLException;
 
 	//rahul's:
 	public void generateReceiptNo(String ein) throws ClassNotFoundException, SQLException;
 	public void totalMonthlyExpense(String ein)throws ClassNotFoundException, SQLException;
+	boolean Login(String employeeEin, String password) throws ClassNotFoundException, SQLException;
+	Employee searchEmployee(String employeeId) throws ClassNotFoundException, SQLException;
 }
 /*
  * 

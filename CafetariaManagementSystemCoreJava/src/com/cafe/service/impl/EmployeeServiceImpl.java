@@ -10,9 +10,10 @@ import com.cafe.dao.impl.EmployeeDaoImpl;
 import com.cafe.dao.impl.MenuDaoImpl;
 import com.cafe.helper.LoginHelper;
 import com.cafe.service.EmployeeService;
-import com.cafe.ui.impl.InitialUserInterfaceImpl;
 
 public class EmployeeServiceImpl implements EmployeeService {
+	EmployeeDaoImpl employeeDaoImpl=new EmployeeDaoImpl();
+	@Override
 	public boolean Login(String employeeEin, String password) 
 			throws ClassNotFoundException, SQLException
 	{
@@ -20,18 +21,20 @@ public class EmployeeServiceImpl implements EmployeeService {
 		boolean ans=login.Login(employeeEin, password);
 		return ans;
 	}
-	public boolean searchEmployee(String employeeId) throws ClassNotFoundException, SQLException
+	@Override
+	public Employee searchEmployee(String employeeId) throws ClassNotFoundException, SQLException
 	{
-		EmployeeDaoImpl employeeDaoImpl=new EmployeeDaoImpl();
+		
 		Employee employee=employeeDaoImpl.searchEmployee(employeeId);
 		if(employee==null)
-			return true;
+			return null;
 		else
-			return false;
+			return employee;
 	}
-	public void displayMenu(String employeeId) throws ClassNotFoundException, SQLException
+	@Override
+	public Menu displayMenu(String employeeId) throws ClassNotFoundException, SQLException
 	{
-		EmployeeDaoImpl employeeDaoImpl=new EmployeeDaoImpl();
+		//EmployeeDaoImpl employeeDaoImpl=new EmployeeDaoImpl();
 		Employee employee=new Employee();
 		employee=employeeDaoImpl.searchEmployee(employeeId);
 		Menu menu=new Menu();
@@ -40,29 +43,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 		String day="Day_"+dayOfWeek;
 		MenuDaoImpl menuDaoImpl=new MenuDaoImpl();
 		menu=menuDaoImpl.searchMenu(day);
-		if(employee.getHasOpted().equalsIgnoreCase("y"))
-		{
-			InitialUserInterfaceImpl initialUserInterfaceImpl=new InitialUserInterfaceImpl();
-			initialUserInterfaceImpl.displayMenu(menu);
-		}
-		if(employee.getHasOpted().equalsIgnoreCase("n"))
-		{
-			InitialUserInterfaceImpl initialUserInterfaceImpl=new InitialUserInterfaceImpl();
-			initialUserInterfaceImpl.displayMenu(menu);
-			int choice=initialUserInterfaceImpl.wantToOpt();
-			if(choice==1)
-			{
-				//Generate Receipt
-			}
-			else
-			{
-				//System.exit();
-			}
-		}
+		return menu;
 	}
+	@Override
 	public boolean signupEmployee(Employee employee) throws ClassNotFoundException, SQLException
 	{
-		EmployeeDaoImpl employeeDaoImpl=new EmployeeDaoImpl();
+		//EmployeeDaoImpl employeeDaoImpl=new EmployeeDaoImpl();
 		Employee myEmployee=new Employee();
 		myEmployee=employeeDaoImpl.searchEmployee(employee.getEIN());
 		if(myEmployee==null)
@@ -77,7 +63,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		}
 	}
 	///Rahul's 
-		EmployeeDaoImpl employeeDaoImpl = new EmployeeDaoImpl();
+		//EmployeeDaoImpl employeeDaoImpl = new EmployeeDaoImpl();
 		static int receiptNo = 0;
 		public void generateReceiptNo(String ein) throws ClassNotFoundException, SQLException{
 //			Employee currentEmployee= employeeDaoImpl.searchEmployee(ein);
