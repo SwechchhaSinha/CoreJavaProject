@@ -42,11 +42,11 @@ public class MenuDaoImpl implements MenuDao
 		Connection conn=ConnectionHelper.getConnection();
 		PreparedStatement statement=conn.prepareStatement("update Menu set dish_1=?,dish_2=?,"
 				+ "dish_3=?,dish_4=?,dish_5=?,dish_6=?,dish_7=?,dish_8=? where menu_day=?");
-		statement.setString(1, menu.getMenuCurrentDay());
+		statement.setString(9, menu.getMenuCurrentDay());
 		for(int i=0;i<menu.getMenuArrayList().size();i++)
 		{
-			statement.setString(i+2, menu.getMenuArrayList().get(i));
-			i++;
+			statement.setString(i+1, menu.getMenuArrayList().get(i));
+			
 		}
 		int rows=statement.executeUpdate();
 		if(rows <= 0)
@@ -62,7 +62,7 @@ public class MenuDaoImpl implements MenuDao
 		Connection conn=ConnectionHelper.getConnection();
 		Statement statement=conn.createStatement();
 		String searchedDay = null;
-		ResultSet rs=statement.executeQuery("Select * from Menu where day="+"'"+day+"'");
+		ResultSet rs=statement.executeQuery("Select * from Menu where menu_day="+"'"+day+"'");
 		while(rs.next())
 		{
 			searchedDay=rs.getString(1);

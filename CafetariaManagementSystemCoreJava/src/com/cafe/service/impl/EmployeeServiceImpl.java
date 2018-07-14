@@ -14,12 +14,12 @@ import com.cafe.service.EmployeeService;
 public class EmployeeServiceImpl implements EmployeeService {
 	EmployeeDaoImpl employeeDaoImpl=new EmployeeDaoImpl();
 	@Override
-	public boolean Login(String employeeEin, String password) 
+	public String Login(String employeeEin, String password) 
 			throws ClassNotFoundException, SQLException
 	{
 		LoginHelper login=new LoginHelper();
-		boolean ans=login.Login(employeeEin, password);
-		return ans;
+		return login.Login(employeeEin, password);
+		
 	}
 	@Override
 	public Employee searchEmployee(String employeeId) throws ClassNotFoundException, SQLException
@@ -40,7 +40,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 		Menu menu=new Menu();
 		Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
 		int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-		String day="Day_"+dayOfWeek;
+		System.out.println(dayOfWeek);
+		String day="Day_"+(dayOfWeek-1);
 		MenuDaoImpl menuDaoImpl=new MenuDaoImpl();
 		menu=menuDaoImpl.searchMenu(day);
 		return menu;
@@ -65,12 +66,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 	///Rahul's 
 		//EmployeeDaoImpl employeeDaoImpl = new EmployeeDaoImpl();
 		static int receiptNo = 0;
-		public void generateReceiptNo(String ein) throws ClassNotFoundException, SQLException{
+		public int generateReceiptNo(String ein) throws ClassNotFoundException, SQLException{
 //			Employee currentEmployee= employeeDaoImpl.searchEmployee(ein);
-			System.out.println("Thank you for coming! Your Receipt no. is: " +  ++receiptNo);
+			return ++receiptNo;
 		}
-		public void totalMonthlyExpense(String ein) throws ClassNotFoundException, SQLException{
+		public boolean totalMonthlyExpense(String ein) throws ClassNotFoundException, SQLException{
 			Employee currentEmployee= employeeDaoImpl.searchEmployee(ein);
-			employeeDaoImpl.updateEmployee(ein, currentEmployee.getMonthlyFoodExpense());
+			return employeeDaoImpl.updateEmployee(ein, currentEmployee.getMonthlyFoodExpense());
 		} 
 }

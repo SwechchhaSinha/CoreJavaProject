@@ -8,7 +8,8 @@ public interface InitialUserInterfcae
 	public void performInitialAction(int choice);
 	void displayMenuForStock();
 	int wantToOpt();
-	void displayMenu(Menu menu, String str);
+	//void displayMenu(Menu menu, String str);
 	void afterCorrectCredentials();
 	void displayWrongCredentials();
+	void displayMenu(Menu menu, String str, String ein);
 }

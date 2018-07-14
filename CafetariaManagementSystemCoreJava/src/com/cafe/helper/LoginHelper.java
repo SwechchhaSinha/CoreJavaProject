@@ -7,18 +7,21 @@ import com.cafe.service.impl.EmployeeServiceImpl;
 import com.cafe.ui.impl.InitialUserInterfaceImpl;
 
 public class LoginHelper {
-	public boolean Login(String employeeEin, String password) throws ClassNotFoundException, SQLException
+	public String Login(String employeeEin, String password) throws ClassNotFoundException, SQLException
 	{
 		EmployeeDaoImpl employeeDaoImpl=new EmployeeDaoImpl();
 		Employee employee=new Employee();
 		employee=employeeDaoImpl.searchEmployee(employeeEin);
-		if(employee.getEIN().equals(employeeEin)&& employee.getPassword().equals(password))
+		if(employee.equals(null))
+			return "User does not exist. Please sign up!!";
+			
+		if(employee.getPassword().equals(password))
 		{
-			return true;
+			return "Login Successful";
 		}
 		else
 		{
-			return false;
+			return "Please enter correct password";
 
 		}
 	}

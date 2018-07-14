@@ -36,7 +36,7 @@ public class FoodDaoImpl implements FoodDao {
 	public List<Food> listAllFood(String category) throws SQLException, ClassNotFoundException {
 		Connection conn = ConnectionHelper.getConnection();
 		PreparedStatement statement = conn.prepareStatement("Select * from food_item where category=?");
-		statement.setString(0, category);
+		statement.setString(1, category);
 		ArrayList<Food> foodList = new ArrayList<>();
 		ResultSet rs = statement.executeQuery();
 		while (rs.next()) {
@@ -73,7 +73,8 @@ public class FoodDaoImpl implements FoodDao {
 	@Override
 	public boolean insertFood(Food food) throws SQLException, ClassNotFoundException {
 		Connection conn = ConnectionHelper.getConnection();
-		PreparedStatement statement = conn.prepareStatement("Insert into food_item" + "values(?,?,?,?)");
+		System.out.println(food);
+		PreparedStatement statement = conn.prepareStatement("Insert into food_item values(?,?,?,?)");
 
 		statement.setString(1, food.getF_id());
 		statement.setString(2, food.getF_name());
@@ -94,8 +95,8 @@ public class FoodDaoImpl implements FoodDao {
 		Connection conn = ConnectionHelper.getConnection();
 		PreparedStatement statement = conn.prepareStatement("update food_item set food_quantity=? where food_id=?");
 
-		statement.setString(1, food_id);
-		statement.setInt(2, qty);
+		statement.setString(2, food_id);
+		statement.setInt(1, qty);
 		int rows = statement.executeUpdate();
 
 		if (rows <= 0)

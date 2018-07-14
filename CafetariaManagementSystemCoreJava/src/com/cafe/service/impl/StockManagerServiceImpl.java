@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.cafe.beans.Food;
 import com.cafe.beans.Menu;
@@ -25,8 +26,9 @@ public class StockManagerServiceImpl implements StockManagerService {
 	@Override
 	public boolean inputStock(Food food, int price, String date) throws ClassNotFoundException, SQLException {
 		boolean status1 = foodDaoImpl.insertFood(food);
-		boolean status2 = transactionDaoImpl
-				.insertTransaction(new Transaction(date, food.getF_id(), food.getQuantity(), price));
+		Transaction t=new Transaction(date, food.getF_id(), food.getQuantity(), price);
+		System.out.println(t);
+		boolean status2 = transactionDaoImpl.insertTransaction(t);
 		if (status1 == true && status2 == true)
 			return true;
 		return false;
@@ -73,24 +75,26 @@ public class StockManagerServiceImpl implements StockManagerService {
 	public void generateReport(String date) throws ClassNotFoundException, SQLException, IOException
 	{
 		ArrayList<Transaction> transactions=transactionDaoImpl.searchTransaction(date);
+		
 		File report=new File("Report_"+date);
 		FileOutputStream fileOutputStream=new FileOutputStream(report);
 		DataOutputStream stream=new DataOutputStream(fileOutputStream);
 		for(Transaction t:transactions)
 		{
+			System.out.println(t);
 			stream.writeChars(t.toString());
 		}
 				
 	}
 
 	@Override
-	public void displayFood() throws ClassNotFoundException, SQLException {
-		foodDaoImpl.listAllFood();
+	public List<Food> displayFood() throws ClassNotFoundException, SQLException {
+		return(foodDaoImpl.listAllFood());
 	}
 
 	@Override
-	public void displayFood(String category) throws ClassNotFoundException, SQLException {
-		foodDaoImpl.listAllFood(category);
+	public List<Food> displayFood(String category) throws ClassNotFoundException, SQLException {
+		return foodDaoImpl.listAllFood(category);
 
 	}
 }

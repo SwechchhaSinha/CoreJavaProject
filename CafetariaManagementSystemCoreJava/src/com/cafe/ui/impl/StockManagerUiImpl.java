@@ -2,6 +2,7 @@ package com.cafe.ui.impl;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
 
 import com.cafe.beans.Food;
@@ -18,12 +19,20 @@ public class StockManagerUiImpl implements StockManagerUi {
 		int choice = sc.nextInt();
 		switch(choice){
 		case 1:
-			stockManagerServiceImpl.displayFood();
+			List<Food> foodList=stockManagerServiceImpl.displayFood();
+			for(Food food:foodList)
+			{
+				System.out.println(food);
+			}
 			break;
 		case 2:
 			System.out.println("Enter categroy: ");
 			String category = sc.next();
-			stockManagerServiceImpl.displayFood(category);
+			List<Food> foodList1=stockManagerServiceImpl.displayFood(category);
+			for(Food food:foodList1)
+			{
+				System.out.println(food);
+			}
 			break;
 		default:
 			System.out.println("Please enter the right choice.");
@@ -41,7 +50,7 @@ public class StockManagerUiImpl implements StockManagerUi {
 				System.out.println("Enter Food_Id");
 				String fId = sc.next();
 				System.out.println("Enter food name");
-				String fName  = sc.nextLine();
+				String fName  = sc.next();
 				System.out.println("Enter food category");
 				String fCategory = sc.next();
 				System.out.println("Enter food quantity");
@@ -90,7 +99,13 @@ public class StockManagerUiImpl implements StockManagerUi {
 	public void generateReport() throws ClassNotFoundException, SQLException, IOException{
 		System.out.println("Enter date in yyyy-mm-dd");
 		String fDate = sc.next();
+		if (fDate.matches("\\d{4}-\\d{2}-\\d{2}")) {
 		stockManagerServiceImpl.generateReport(fDate);
+		}
+		else
+		{
+			System.out.println("Please enter date in the specified format!!");
+		}
 	}
 
 }

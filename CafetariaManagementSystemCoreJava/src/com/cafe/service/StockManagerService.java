@@ -2,6 +2,7 @@ package com.cafe.service;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 import com.cafe.beans.Food;
 import com.cafe.beans.Menu;
@@ -9,9 +10,9 @@ import com.cafe.beans.Menu;
 public interface StockManagerService {
 
 	
-	void displayFood() throws ClassNotFoundException, SQLException;
+	List<Food> displayFood() throws ClassNotFoundException, SQLException;
 
-	void displayFood(String category) throws ClassNotFoundException, SQLException;
+	List<Food> displayFood(String category) throws ClassNotFoundException, SQLException;
 
 	boolean inputStock(Food food, int price, String date) throws ClassNotFoundException, SQLException;
 
