@@ -18,7 +18,7 @@ public interface StockManagerService {
 	boolean updateStock(String foodId, int quantity, int price, String date)
 			throws ClassNotFoundException, SQLException;
 
-	boolean outputStock(String foodId, int quantity) throws ClassNotFoundException, SQLException;
+	String outputStock(String foodId, int quantity) throws ClassNotFoundException, SQLException;
 
 	boolean updateMenu(Menu menu) throws ClassNotFoundException, SQLException;
 

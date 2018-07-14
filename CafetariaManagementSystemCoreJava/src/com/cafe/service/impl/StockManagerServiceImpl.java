@@ -45,12 +45,23 @@ public class StockManagerServiceImpl implements StockManagerService {
 	}
 
 	@Override
-	public boolean outputStock(String foodId, int quantity) throws ClassNotFoundException, SQLException {
-		boolean status1 = foodDaoImpl.updateFoodQuantity(foodId,
-				foodDaoImpl.searchFood(foodId).getQuantity() - quantity);
+	public String outputStock(String foodId, int quantity) throws ClassNotFoundException, SQLException
+	{
+		int currentQuantity=foodDaoImpl.searchFood(foodId).getQuantity();
+		if(quantity<=currentQuantity)
+		{
+			boolean status1 = foodDaoImpl.updateFoodQuantity(foodId,currentQuantity-quantity);
+			
+//		if(foodDaoImpl.searchFood(foodId).getQuantity()<=foodDaoImpl.searchFood(foodId).getThreshold())
+//		{
+//			return "Food remaining is less than threhsold please refill it";
+//		}
+		return "You can take the food item";
+		}
+		
 
-		return status1;
-
+		else
+			return "Sufficient stock not present!!";
 	}
 	@Override
 	public boolean updateMenu(Menu menu) throws ClassNotFoundException, SQLException

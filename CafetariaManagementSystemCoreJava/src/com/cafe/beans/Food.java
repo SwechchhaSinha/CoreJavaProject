@@ -3,6 +3,13 @@ package com.cafe.beans;
 public class Food {
 	private String f_id,f_name,category;
 	private int quantity;
+//	private int threshold;
+//	public int getThreshold() {
+//		return threshold;
+//	}
+//	public void setThreshold(int threshold) {
+//		this.threshold = threshold;
+//	}
 	public String getF_id() {
 		return f_id;
 	}
