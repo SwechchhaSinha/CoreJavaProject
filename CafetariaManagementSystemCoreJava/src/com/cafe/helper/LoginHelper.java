@@ -12,10 +12,10 @@ public class LoginHelper {
 		EmployeeDaoImpl employeeDaoImpl=new EmployeeDaoImpl();
 		Employee employee=new Employee();
 		employee=employeeDaoImpl.searchEmployee(employeeEin);
-		if(employee.equals(null))
+		if(employee==null)
 			return "User does not exist. Please sign up!!";
 			
-		if(employee.getPassword().equals(password))
+		if(employee.getPassword().equals(password)&&employee.getEIN().equals(employeeEin))
 		{
 			return "Login Successful";
 		}

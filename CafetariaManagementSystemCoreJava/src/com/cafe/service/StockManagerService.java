@@ -24,4 +24,5 @@ public interface StockManagerService {
 	boolean updateMenu(Menu menu) throws ClassNotFoundException, SQLException;
 
 	void generateReport(String date) throws ClassNotFoundException, SQLException, IOException;
+	boolean deleteStock(String foodId) throws ClassNotFoundException, SQLException;
 }

@@ -1,11 +1,16 @@
 package com.cafe.service.impl;
 
+
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.TimeZone;
 
+import com.cafe.beans.AddOn;
 import com.cafe.beans.Employee;
 import com.cafe.beans.Menu;
+import com.cafe.dao.impl.AddOnDaoImpl;
 import com.cafe.dao.impl.EmployeeDaoImpl;
 import com.cafe.dao.impl.MenuDaoImpl;
 import com.cafe.helper.LoginHelper;
@@ -13,6 +18,7 @@ import com.cafe.service.EmployeeService;
 
 public class EmployeeServiceImpl implements EmployeeService {
 	EmployeeDaoImpl employeeDaoImpl=new EmployeeDaoImpl();
+	AddOnDaoImpl addOnDaoImpl=new AddOnDaoImpl();
 	@Override
 	public String Login(String employeeEin, String password) 
 			throws ClassNotFoundException, SQLException
@@ -40,8 +46,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 		Menu menu=new Menu();
 		Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
 		int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-		System.out.println(dayOfWeek);
-		String day="Day_"+(dayOfWeek-1);
+		
+		String day="Day "+(dayOfWeek-1);
 		MenuDaoImpl menuDaoImpl=new MenuDaoImpl();
 		menu=menuDaoImpl.searchMenu(day);
 		return menu;
@@ -74,4 +80,22 @@ public class EmployeeServiceImpl implements EmployeeService {
 			Employee currentEmployee= employeeDaoImpl.searchEmployee(ein);
 			return employeeDaoImpl.updateEmployee(ein, currentEmployee.getMonthlyFoodExpense());
 		} 
+		
+		@Override
+		public ArrayList<AddOn> addON() throws ClassNotFoundException, SQLException {
+			// TODO Auto-generated method stub
+			ArrayList<AddOn>listAllAddOn=addOnDaoImpl.listAllAddOn();
+			return listAllAddOn;
+		}
+		@Override
+		public String searchAddOn(String addOnId) throws ClassNotFoundException, SQLException
+		{
+			AddOn addOn=addOnDaoImpl.searchAddOn(addOnId);
+			if(addOn==null)
+				return null;
+			else if(addOn.getAddOnQuantity()>1)
+				return "Add On Available";
+			else
+				return "Add On Not Available";
+		}
 }

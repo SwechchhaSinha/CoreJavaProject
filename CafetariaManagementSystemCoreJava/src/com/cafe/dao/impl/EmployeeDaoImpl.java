@@ -40,7 +40,10 @@ public class EmployeeDaoImpl implements EmployeeDao{
 		Connection conn=ConnectionHelper.getConnection();
 		PreparedStatement statement=conn.prepareStatement("select * from employee where ein=?");
 		statement.setString(1, id);
+		
 		ResultSet rs=statement.executeQuery();
+		if(rs==null)
+			return null;
 		Employee employee=null;
 		while(rs.next())
 		{

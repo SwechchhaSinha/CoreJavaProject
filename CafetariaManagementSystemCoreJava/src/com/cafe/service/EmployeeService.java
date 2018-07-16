@@ -1,8 +1,10 @@
 package com.cafe.service;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
+import com.cafe.beans.AddOn;
 import com.cafe.beans.Employee;
 import com.cafe.beans.Menu;
 
@@ -11,12 +13,14 @@ public interface EmployeeService
 	
 	public Menu displayMenu(String employeeId) throws ClassNotFoundException, SQLException;
 	public boolean signupEmployee(Employee employee) throws ClassNotFoundException, SQLException;
-
+	
 	//rahul's:
 	public int generateReceiptNo(String ein) throws ClassNotFoundException, SQLException;
 	public boolean totalMonthlyExpense(String ein)throws ClassNotFoundException, SQLException;
 	String Login(String employeeEin, String password) throws ClassNotFoundException, SQLException;
 	Employee searchEmployee(String employeeId) throws ClassNotFoundException, SQLException;
+	public ArrayList<AddOn> addON() throws ClassNotFoundException, SQLException;
+	String searchAddOn(String addOnId) throws ClassNotFoundException, SQLException;
 }
 /*
  * 

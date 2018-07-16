@@ -109,8 +109,9 @@ public class FoodDaoImpl implements FoodDao {
 	@Override
 	public boolean deleteFood(String food_id) throws ClassNotFoundException, SQLException {
 		Connection conn = ConnectionHelper.getConnection();
-		PreparedStatement statement = conn.prepareStatement("delete from food_item where food_id=?");
-
+		//PreparedStatement statement1 = conn.prepareStatement("delete from transaction where food_id=?");
+		PreparedStatement statement = conn.prepareStatement("delete from food_item where food_id=? ");
+		//statement1.setString(1, food_id);
 		statement.setString(1, food_id);
 
 		int rows = statement.executeUpdate();

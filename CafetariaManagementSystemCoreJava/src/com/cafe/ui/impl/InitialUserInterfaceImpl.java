@@ -2,9 +2,12 @@ package com.cafe.ui.impl;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
+import com.cafe.beans.AddOn;
 import com.cafe.beans.Employee;
 import com.cafe.beans.Menu;
 import com.cafe.service.impl.EmployeeServiceImpl;
@@ -20,14 +23,14 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 
 	@Override
 	public void displayInitialMenu() {
-		int choice = 0;
+
 		System.out.println("Welcome to Get July 2018 Batch Cafeteria Management System ");
 		System.out.println("1. Enter system as an employee ??");
 		System.out.println("2. Are you a new employee ??");
 		System.out.println("3. Exit.");
-		Scanner scan = new Scanner(System.in);
+		
 		try {
-			choice = scan.nextInt();
+			int choice = scan.nextInt();
 			performInitialAction(choice);
 		} catch (InputMismatchException excep) {
 			System.out.println("Please enter a valid input");
@@ -37,7 +40,7 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 
 	@Override
 	public void performInitialAction(int choice) {
-		Scanner scan = new Scanner(System.in);
+		//Scanner scan = new Scanner(System.in);
 
 		String ein = null, password = null;
 		switch (choice) {
@@ -62,11 +65,11 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 
 				} else {
 					System.out.println(correctLoginCredentials);
-					displayInitialMenu();
 				}
-			} catch (ClassNotFoundException | SQLException e) {
+			} catch (InputMismatchException|ClassNotFoundException | SQLException e) {
 				// TODO Auto-generated catch block
 				System.out.println("Error : "+e.getMessage());
+				//System.out.println("Please enter correct credentials");
 			}
 			break;
 		case 2:
@@ -91,7 +94,6 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 					str = "n";
 				else {
 					System.out.println("You have entered wrong choice!! Start over!!");
-					displayInitialMenu();
 				}
 				emp.setHasOpted(str);
 				emp.setMonthlyFoodExpense(0);
@@ -103,14 +105,14 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 					if (ans)
 						System.out.println("Successfully Created Account");
 					System.out.println("Start your first session ");
-					displayInitialMenu();
+					
 				} catch (ClassNotFoundException | SQLException e) {
 					System.out.println("Error : "+e.getMessage());
 				}
 
 			} else {
 				System.out.println("This EIN already exist! Please login!!");
-				displayInitialMenu();
+				
 			}
 			break;
 		case 3:
@@ -135,11 +137,20 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 	@Override
 	public void displayMenu(Menu menu, String str, String ein) {
 		System.out.println(menu);
-		if (str.equals("y")) {
-
+		if (str.equalsIgnoreCase("y")) {
+			System.out.println("Want to opt for any Add On ??");
+			System.out.println("Press 1 for yes");
+			System.out.println("Press 2 to cnotinue");
+			int choice = scan.nextInt();
+			if(choice==1)
+				displayAddOn();
+			else
+				System.out.println("Have your lunch!!");
 		} else {
 			int ans = wantToOpt();
 			if (ans == 1)
+			{
+				displayAddOn();
 				try {
 					int recieptNo=employeeServiceImpl.generateReceiptNo(ein);
 					boolean status=employeeServiceImpl.totalMonthlyExpense(ein);
@@ -156,7 +167,7 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 					
 					System.out.println("Error : "+e.getMessage());
 				}
-
+			}
 		}
 	}
 
@@ -170,7 +181,7 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 		} catch (InputMismatchException excep) {
 			System.out.println("1. Please enter a valid input");
 		}
-		scan.close();
+		
 		return choice;
 	}
 
@@ -207,11 +218,9 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 			}
 			break;
 		case 3:
-			try {
+			
 				stockManagerUiImpl.updateStock();
-			} catch (ClassNotFoundException | SQLException e) {
-
-			}
+			
 			break;
 		case 4:
 			stockManagerUiImpl1.updateMenu();
@@ -221,4 +230,42 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 		}
 
 	}
+
+	@Override
+	public void displayAddOn() {
+		ArrayList<AddOn> addOn=new ArrayList<>();
+		try {
+			
+			addOn=employeeServiceImpl.addON();
+		} catch (ClassNotFoundException e) {
+			System.out.println(e.getMessage());
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+			System.out.println(addOn);
+		
+		System.out.println("Enter the id of Add On you want to have");
+		String addOnId=scan.next();
+		try {
+			String result=employeeServiceImpl.searchAddOn(addOnId);
+			if(result==null)
+			{
+				System.out.println("Add On Id Does Not exist!!");
+			}
+			else if(result.equals("Add On Available"))
+			{
+				System.out.println("Add On Available bill will be updated to monthly food expense");
+			}
+			else
+			{
+				System.out.println("Add on not available");
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Some error has occured");
+		}
+		
+		
+	}
+	
 }

@@ -12,4 +12,5 @@ public interface InitialUserInterfcae
 	void afterCorrectCredentials();
 	void displayWrongCredentials();
 	void displayMenu(Menu menu, String str, String ein);
+	void displayAddOn();
 }

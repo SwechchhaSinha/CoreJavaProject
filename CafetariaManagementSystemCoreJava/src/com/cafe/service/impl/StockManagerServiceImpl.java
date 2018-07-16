@@ -97,4 +97,10 @@ public class StockManagerServiceImpl implements StockManagerService {
 		return foodDaoImpl.listAllFood(category);
 
 	}
+
+	@Override
+	public boolean deleteStock(String foodId) throws ClassNotFoundException, SQLException {
+		
+		return foodDaoImpl.deleteFood(foodId);
+	}
 }

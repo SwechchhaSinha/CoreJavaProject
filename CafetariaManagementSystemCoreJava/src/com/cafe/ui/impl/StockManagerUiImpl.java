@@ -39,7 +39,7 @@ public class StockManagerUiImpl implements StockManagerUi {
 		}
 		
 	}
-	public void updateStock() throws ClassNotFoundException, SQLException{
+	public void updateStock(){
 		System.out.println("1. Insert new stock"
 				+ "2. Update Existing stock"
 				+ "3. Delete Existing stock");
@@ -60,7 +60,12 @@ public class StockManagerUiImpl implements StockManagerUi {
 				int fPrice = sc.nextInt();
 				System.out.println("Enter date in yyyy-mm-dd");
 				String fDate = sc.next();
+			try {
 				status = stockManagerServiceImpl.inputStock(food, fPrice, fDate);
+			} catch (ClassNotFoundException | SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 				if(status)
 					System.out.println("Stock inserted successfully");
 				else
@@ -75,7 +80,12 @@ public class StockManagerUiImpl implements StockManagerUi {
 				fPrice = sc.nextInt();
 				System.out.println("Enter date in yyyy-mm-dd");
 				fDate = sc.next();
+			try {
 				status = stockManagerServiceImpl.updateStock(fId, fQty, fPrice, fDate);
+			} catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 				if(status)
 					System.out.println("Stock updated successfully");
 				else
@@ -84,7 +94,12 @@ public class StockManagerUiImpl implements StockManagerUi {
 			case 3:
 				System.out.println("Enter Food_Id");
 				fId = sc.next();
-//				status = smsi.deleteStock(fId); under construction
+			try {
+				status = stockManagerServiceImpl.deleteStock(fId);
+			} catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 				if(status)
 					System.out.println("Stock deleted successfully");
 				else
