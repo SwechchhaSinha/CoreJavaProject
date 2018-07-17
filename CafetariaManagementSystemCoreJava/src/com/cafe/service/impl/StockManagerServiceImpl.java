@@ -5,7 +5,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +28,8 @@ public class StockManagerServiceImpl implements StockManagerService {
 	@Override
 	public boolean inputStock(Food food, int price, String date) throws ClassNotFoundException, SQLException {
 		boolean status1 = foodDaoImpl.insertFood(food);
-		Transaction t=new Transaction(date, food.getF_id(), food.getQuantity(), price);
+		LocalDate date1=LocalDate.parse(date);//Change
+		Transaction t=new Transaction(date1, food.getF_id(), food.getQuantity(), price);
 		System.out.println(t);
 		boolean status2 = transactionDaoImpl.insertTransaction(t);
 		if (status1 == true && status2 == true)
@@ -35,11 +38,13 @@ public class StockManagerServiceImpl implements StockManagerService {
 	}
 
 	@Override
-	public boolean updateStock(String foodId, int quantity, int price, String date)
+	public boolean updateStock(String foodId, int quantity, int price, LocalDate date1)
 			throws ClassNotFoundException, SQLException {
 		boolean status1 = foodDaoImpl.updateFoodQuantity(foodId,
 				foodDaoImpl.searchFood(foodId).getQuantity() + quantity);
-		boolean status2 = transactionDaoImpl.insertTransaction(new Transaction(date, foodId, quantity, price));
+		Date date=Date.valueOf(date1);
+		
+		boolean status2 = transactionDaoImpl.insertTransaction(new Transaction(date1, foodId, quantity, price));
 		if (status1 == true && status2 == true)
 			return true;
 		return false;
@@ -72,7 +77,7 @@ public class StockManagerServiceImpl implements StockManagerService {
 			
 	}
 	@Override
-	public void generateReport(String date) throws ClassNotFoundException, SQLException, IOException
+	public void generateReport(LocalDate date) throws ClassNotFoundException, SQLException, IOException
 	{
 		ArrayList<Transaction> transactions=transactionDaoImpl.searchTransaction(date);
 		

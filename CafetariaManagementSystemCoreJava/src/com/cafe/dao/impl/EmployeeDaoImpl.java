@@ -61,9 +61,10 @@ public class EmployeeDaoImpl implements EmployeeDao{
 	@Override
 	public boolean insertEmployee(Employee employee) throws ClassNotFoundException, SQLException 
 	{
+		System.out.println(employee);
 		Connection conn=ConnectionHelper.getConnection();
 		PreparedStatement statement=conn.prepareStatement("Insert into employee"
-				+ "values(?,?,?,?,?)");
+				+ " values(?,?,?,?,?)");
 		
 		statement.setString(1, employee.getEIN());
 		statement.setString(2, employee.getEmployeeName());

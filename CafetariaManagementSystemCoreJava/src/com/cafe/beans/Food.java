@@ -43,7 +43,7 @@ public class Food {
 	}
 	@Override
 	public String toString() {
-		return "Food [f_id=" + f_id + ", f_name=" + f_name + ", category=" + category + ", quantity=" + quantity + "]";
+		return "Food Id=" + f_id + ", Food Name=" + f_name + ", Category=" + category + ", Quantity=" + quantity ;
 	}
 	
 

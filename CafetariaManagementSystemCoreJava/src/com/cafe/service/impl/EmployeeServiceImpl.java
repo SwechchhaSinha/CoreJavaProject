@@ -38,11 +38,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 			return employee;
 	}
 	@Override
-	public Menu displayMenu(String employeeId) throws ClassNotFoundException, SQLException
+	public Menu displayMenu() throws ClassNotFoundException, SQLException
 	{
-		//EmployeeDaoImpl employeeDaoImpl=new EmployeeDaoImpl();
-		Employee employee=new Employee();
-		employee=employeeDaoImpl.searchEmployee(employeeId);
+	
 		Menu menu=new Menu();
 		Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
 		int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
@@ -58,10 +56,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 		//EmployeeDaoImpl employeeDaoImpl=new EmployeeDaoImpl();
 		Employee myEmployee=new Employee();
 		myEmployee=employeeDaoImpl.searchEmployee(employee.getEIN());
+		//System.out.println(myEmployee);
 		if(myEmployee==null)
 		{
-			employeeDaoImpl.insertEmployee(employee);
-			return true;
+			return employeeDaoImpl.insertEmployee(employee);
 		}
 		else
 		{
@@ -88,14 +86,24 @@ public class EmployeeServiceImpl implements EmployeeService {
 			return listAllAddOn;
 		}
 		@Override
-		public String searchAddOn(String addOnId) throws ClassNotFoundException, SQLException
+		public int searchAddOn(String addOnId) throws ClassNotFoundException, SQLException
 		{
 			AddOn addOn=addOnDaoImpl.searchAddOn(addOnId);
-			if(addOn==null)
-				return null;
-			else if(addOn.getAddOnQuantity()>1)
-				return "Add On Available";
+			if (addOn.equals(null))
+				return 0;
+			return addOn.getAddOnQuantity();
+		}
+		@Override
+		public boolean buyAddOn(String addOnId, int quantity) throws ClassNotFoundException, SQLException {
+			if(searchAddOn(addOnId)>=quantity)
+			{
+				addOnDaoImpl.outputAddOn(addOnId, quantity);
+				return true;
+			}
 			else
-				return "Add On Not Available";
+				return false;
+				
+		
+			
 		}
 }

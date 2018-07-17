@@ -32,7 +32,7 @@ public class Menu {
 
 	@Override
 	public String toString() {
-		return "Menu [menuArrayList=" + menuArrayList + ", menuCurrentDay=" + menuCurrentDay + "]";
+		return "Menu=" + menuArrayList ;
 	}
 	
 	

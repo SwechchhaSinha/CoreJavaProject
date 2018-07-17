@@ -111,9 +111,25 @@ public class AddOnDaoImpl implements AddOnDao{
 	@Override
 	public boolean deleteAddOn(String addOnId)throws ClassNotFoundException, SQLException {
 		Connection conn = ConnectionHelper.getConnection();
-		PreparedStatement statement = conn.prepareStatement("delete from addOn where addOnId_id=?");
+		PreparedStatement statement = conn.prepareStatement("delete from addOn where addOnId=?");
 
 		statement.setString(1, addOnId);
+
+		int rows = statement.executeUpdate();
+
+		if (rows <= 0)
+			return false;
+		else
+			return true;
+	}
+
+	@Override
+	public boolean outputAddOn(String addOnId, int quantity)throws ClassNotFoundException, SQLException
+	{
+		Connection conn = ConnectionHelper.getConnection();
+		PreparedStatement statement = conn.prepareStatement("Update addOn set addonquantity=? where addOnId=?");
+		statement.setInt(1,(searchAddOn(addOnId).getAddOnQuantity())-quantity);
+		statement.setString(2, addOnId);
 
 		int rows = statement.executeUpdate();
 

@@ -1,9 +1,11 @@
 package com.cafe.dao.impl;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,8 +20,8 @@ public class TransactionDaoImpl implements TransactionDao{
 	public boolean insertTransaction(Transaction transaction) throws ClassNotFoundException, SQLException {
 		Connection conn = ConnectionHelper.getConnection();
 		PreparedStatement statement = conn.prepareStatement("Insert into transaction values(?,?,?,?)");
-
-		statement.setString(1, transaction.getDate());
+		Date date=Date.valueOf(transaction.getDate());
+		statement.setDate(1,date);
 		statement.setString(2, transaction.getFood_id());
 		statement.setInt(3, transaction.getQuantity());
 		statement.setInt(4, transaction.getPrice());
@@ -35,10 +37,11 @@ public class TransactionDaoImpl implements TransactionDao{
 	
 
 	@Override
-	public ArrayList<Transaction> searchTransaction(String transaction_date) throws ClassNotFoundException, SQLException {
+	public ArrayList<Transaction> searchTransaction(LocalDate transaction_date) throws ClassNotFoundException, SQLException {
 		Connection conn = ConnectionHelper.getConnection();
 		PreparedStatement statement = conn.prepareStatement("Select * from transaction where transaction_date=?");
-		statement.setString(1, transaction_date);
+		Date date=Date.valueOf(transaction_date);
+		statement.setDate(1,date);
 		Transaction transaction = null;
 		ArrayList<Transaction> transactions=new ArrayList<>();
 		ResultSet rs = statement.executeQuery();

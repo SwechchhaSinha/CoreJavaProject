@@ -47,8 +47,8 @@ public class AddOn {
 	}
 	@Override
 	public String toString() {
-		return "AddOn [addOnId=" + addOnId + ", addOnPrice=" + addOnPrice + ", addOnQuantity=" + addOnQuantity
-				+ ", addOnName=" + addOnName + ", addOnCategory=" + addOnCategory + "]";
+		return "Add On Id=" + addOnId + ", Add On Price=" + addOnPrice + ", Add On Quantity=" + addOnQuantity
+				+ ", Add On Name=" + addOnName  ;
 	}
 	
 	

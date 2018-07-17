@@ -1,7 +1,9 @@
 package com.cafe.ui.impl;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
@@ -80,8 +82,10 @@ public class StockManagerUiImpl implements StockManagerUi {
 				fPrice = sc.nextInt();
 				System.out.println("Enter date in yyyy-mm-dd");
 				fDate = sc.next();
+				LocalDate date=LocalDate.parse(fDate);
 			try {
-				status = stockManagerServiceImpl.updateStock(fId, fQty, fPrice, fDate);
+				
+				status = stockManagerServiceImpl.updateStock(fId, fQty, fPrice, date);
 			} catch (ClassNotFoundException | SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -115,7 +119,8 @@ public class StockManagerUiImpl implements StockManagerUi {
 		System.out.println("Enter date in yyyy-mm-dd");
 		String fDate = sc.next();
 		if (fDate.matches("\\d{4}-\\d{2}-\\d{2}")) {
-		stockManagerServiceImpl.generateReport(fDate);
+			LocalDate date=LocalDate.parse(fDate);
+		stockManagerServiceImpl.generateReport(date);
 		}
 		else
 		{

@@ -21,8 +21,8 @@ public class Employee
 	}
 	@Override
 	public String toString() {
-		return "Employee [EIN=" + EIN + ", employeeName=" + employeeName + ", hasOpted=" + hasOpted
-				+ ", monthlyFoodExpense=" + monthlyFoodExpense  +"]";
+		return "EIN=" + EIN + ", Employee Name=" + employeeName + ", Has Opted=" + hasOpted
+				+ ", Monthly Food Expense=" + monthlyFoodExpense  ;
 	}
 	public String getEIN() {
 		return EIN;

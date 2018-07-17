@@ -24,11 +24,11 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 	@Override
 	public void displayInitialMenu() {
 
-		System.out.println("Welcome to Get July 2018 Batch Cafeteria Management System ");
-		System.out.println("1. Enter system as an employee ??");
-		System.out.println("2. Are you a new employee ??");
+		System.out.println("WELCOME TO GET JULY 2018 CAFETERIA MANAGEMENT SYSTEM : ");
+		System.out.println("1. Login as Employee/Stock Manager");
+		System.out.println("2. Sign Up");
 		System.out.println("3. Exit.");
-		
+
 		try {
 			int choice = scan.nextInt();
 			performInitialAction(choice);
@@ -40,81 +40,95 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 
 	@Override
 	public void performInitialAction(int choice) {
-		//Scanner scan = new Scanner(System.in);
 
 		String ein = null, password = null;
 		switch (choice) {
 		case 1:
-			System.out.println("Enter your login credentials");
-			System.out.println("Enter your username");
-			
-				ein = scan.next();
-				System.out.println("Enter your password");
-				password = scan.next();
-		
+			System.out.println("ENTER LOGIN CREDENTIALS :");
+			System.out.println("Enter your username :");
+			ein = scan.next();
+			System.out.println("Enter your password :");
+			password = scan.next();
+
 			try {
 				String correctLoginCredentials = employeeServiceImpl.Login(ein, password);
 				if (ein.equals("admin") && correctLoginCredentials.equals("Login Successful")) {
 					System.out.println(correctLoginCredentials);
 					displayMenuForStock();
 				} else if (correctLoginCredentials.equals("Login Successful")) {
-					Menu menu = employeeServiceImpl.displayMenu(ein);
+
 					employee = employeeServiceImpl.searchEmployee(ein);
-					afterCorrectCredentials();
-					displayMenu(menu, employee.getHasOpted(), ein);
+					String optStatus = employee.getHasOpted();
+					System.out.println(correctLoginCredentials);
+					displayMenu();
+					haveFood(optStatus, ein);
 
 				} else {
 					System.out.println(correctLoginCredentials);
 				}
-			} catch (InputMismatchException|ClassNotFoundException | SQLException e) {
-				// TODO Auto-generated catch block
-				System.out.println("Error : "+e.getMessage());
-				//System.out.println("Please enter correct credentials");
+			} catch (InputMismatchException | ClassNotFoundException | SQLException e) {
+
+				System.out.println("Error : " + e.getMessage());
+
 			}
 			break;
 		case 2:
+
 			System.out.println("To Sign Up please enter your EIN");
 			ein = scan.next();
 			try {
 				employee = employeeServiceImpl.searchEmployee(ein);
 			} catch (ClassNotFoundException | SQLException e) {
-				System.out.println("Error : "+e.getMessage());
+				System.out.println("Error : " + e.getMessage());
 			}
 			if (employee == null) {
+				while (true) {
+					Employee emp = new Employee();
+					emp.setEIN(ein);
+					System.out.println("Please enter your name");
+					emp.setEmployeeName(scan.next());
+					while (true) {
+						System.out.println("Do you want to avail monthly food facility? (Y/N)");
 
-				Employee emp = new Employee();
-				emp.setEIN(ein);
-				System.out.println("Please enter your name");
-				emp.setEmployeeName(scan.next());
-				System.out.println("Please enter yes and no for not opting the food");
-				String str = scan.next();
-				if (str.equalsIgnoreCase("yes"))
-					str = "y";
-				else if (str.equalsIgnoreCase("no"))
-					str = "n";
-				else {
-					System.out.println("You have entered wrong choice!! Start over!!");
-				}
-				emp.setHasOpted(str);
-				emp.setMonthlyFoodExpense(0);
-				System.out.println("Please create a password for your account");
-				password = scan.next();
-				emp.setPassword(password);
-				try {
-					boolean ans = employeeServiceImpl.signupEmployee(emp);
-					if (ans)
-						System.out.println("Successfully Created Account");
-					System.out.println("Start your first session ");
-					
-				} catch (ClassNotFoundException | SQLException e) {
-					System.out.println("Error : "+e.getMessage());
+						String str = scan.next();
+						if (str.equalsIgnoreCase("Y") || str.equalsIgnoreCase("N")) {
+							emp.setHasOpted(str);
+							break;
+						} else {
+							System.out.println("You have entered wrong choice!! Please start over!!");
+							continue;
+						}
+					}
+
+					emp.setMonthlyFoodExpense(0);
+					System.out.println("Please create a password for your account");
+					password = scan.next();
+					emp.setPassword(password);
+					try {
+						boolean ans = employeeServiceImpl.signupEmployee(emp);
+						if (ans) {
+							System.out.println("Successfully Created Account");
+							System.out.println("Start your first session ");
+
+							break;
+						} else {
+							System.out.println("Oops!!..Some problem has occured. Please try again");
+							continue;
+						}
+
+					} catch (ClassNotFoundException | SQLException e) {
+						System.out.println("Error : " + e.getMessage());
+
+					}
 				}
 
 			} else {
 				System.out.println("This EIN already exist! Please login!!");
-				
+
 			}
+
 			break;
+
 		case 3:
 			System.exit(0);
 		default:
@@ -124,50 +138,84 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 	}
 
 	@Override
-	public void displayWrongCredentials() {
-//		System.out.println("Wrong Login Credentials");
+	public void displayMenu() {
+		Menu menu;
+		try {
+			menu = employeeServiceImpl.displayMenu();
+			System.out.println(menu);
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
-	@Override
-	public void afterCorrectCredentials() {
-		//System.out.println("You have successfully entered login Credentials");
-
-	}
-
-	@Override
-	public void displayMenu(Menu menu, String str, String ein) {
-		System.out.println(menu);
+	public void haveFood(String str, String ein) {
 		if (str.equalsIgnoreCase("y")) {
-			System.out.println("Want to opt for any Add On ??");
-			System.out.println("Press 1 for yes");
-			System.out.println("Press 2 to cnotinue");
-			int choice = scan.nextInt();
-			if(choice==1)
-				displayAddOn();
-			else
-				System.out.println("Have your lunch!!");
-		} else {
-			int ans = wantToOpt();
-			if (ans == 1)
-			{
-				displayAddOn();
-				try {
-					int recieptNo=employeeServiceImpl.generateReceiptNo(ein);
-					boolean status=employeeServiceImpl.totalMonthlyExpense(ein);
-					
-					if(status==true)
-					{
-						System.out.println("Thank you for coming! Your Receipt no. is: " +  recieptNo);
-						System.out.println("Cost of food added to monthly expense!!");
-					}
-					else
-						System.out.println("Sorry , please try again!");
-						
-				} catch (ClassNotFoundException | SQLException e) {
-					
-					System.out.println("Error : "+e.getMessage());
+			
+			while (true) {
+				System.out.println("Would you like to have ice cream/cold drink?? (Chargeable)");
+				System.out.println("1. Yes");
+				System.out.println("2. No");
+				int choice = scan.nextInt();
+				if (choice == 1) {
+					displayAddOn();
+					System.out.println("Enjoy your Food!!");
+					break;
+				} else if (choice == 2) {
+					System.out.println("Enjoy your lunch!!");
+					break;
+				} else {
+					System.out.println("You haven't entered a valid option. Please try again.");
+					continue;
 				}
 			}
+		} else {
+			while(true)
+			{
+			int ans = wantToOpt();
+			if (ans == 1) {
+				System.out.println("Enjoy your lunch!!");
+				System.out.println("Would you like to have ice cream/cold drink?? (Chargeable)\nPress 1 to continue else press any other no.");
+				int ch = scan.nextInt();
+				if (ch == 1)
+					displayAddOn();
+				else 
+					System.out.println("You haven't taken any additional item. Your reciept for lunch is generated.");
+				try {
+					int recieptNo = employeeServiceImpl.generateReceiptNo(ein);
+					boolean status = employeeServiceImpl.totalMonthlyExpense(ein);
+
+					if (status == true) {
+						System.out.println("Thank you for coming! Your Receipt no. is: " + recieptNo);
+						System.out.println("Cost of food added to monthly expense!!");
+					} else {
+						System.out.println("Sorry , please try again!");
+					}
+
+				} catch (ClassNotFoundException | SQLException e) {
+
+					System.out.println("Error : " + e.getMessage());
+				}
+				break;
+			}
+			else if(ans==2)
+			{
+				System.out.println("Would you like to have ice cream/cold drink?? (Chargeable)\nPress 1 to continue");
+				int ch = scan.nextInt();
+				if (ch == 1)
+					displayAddOn();
+				else
+					System.out.println("Thank you for coming!! You have been logged out!!!");
+				break;
+			}
+			else
+			{
+				System.out.println("Please enter a valid choice!!");
+				continue;
+			}
+			}	
+				
 		}
 	}
 
@@ -175,18 +223,23 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 	public int wantToOpt() {
 		int choice = 0;
 
-		System.out.println("1. Enter 1 to opt for lunch or any other digit to sign out of the system");
+		System.out.println(" Would you like to have lunch? (Chargeable)");
+		System.out.println("1. Yes");
+		System.out.println("2. No");
+
 		try {
 			choice = scan.nextInt();
 		} catch (InputMismatchException excep) {
 			System.out.println("1. Please enter a valid input");
 		}
-		
+
 		return choice;
 	}
 
 	@Override
 	public void displayMenuForStock() {
+		label2:while(true)
+		{
 		int choice = 0;
 		System.out.println("Welcome to the Cafeteria Management System");
 		System.out.println("Press 1 to view stock.");
@@ -204,23 +257,23 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 			try {
 				stockManagerUiImpl.displayStock();
 			} catch (ClassNotFoundException | SQLException e) {
-				
-				System.out.println("Error : "+e.getMessage());
+
+				System.out.println("Error : " + e.getMessage());
 			}
 			break;
 		case 2:
-			
+
 			try {
 				stockManagerUiImpl.generateReport();
 			} catch (ClassNotFoundException | SQLException | IOException e) {
-				
-				System.out.println("Error : "+e.getMessage());
+
+				System.out.println("Error : " + e.getMessage());
 			}
 			break;
 		case 3:
-			
-				stockManagerUiImpl.updateStock();
-			
+
+			stockManagerUiImpl.updateStock();
+
 			break;
 		case 4:
 			stockManagerUiImpl1.updateMenu();
@@ -228,44 +281,74 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 		case 5:
 			stockManagerUiImpl1.outputStock();
 		}
+		label1:while(true)
+		{
+		System.out.println("Do you want to continue??? (Y/N)");
+		String ch=scan.next();
+		if(ch.equalsIgnoreCase("y"))
+			continue label2;
+		else if(ch.equalsIgnoreCase("n"))	
+		{
+			System.out.println("You have been logged out of the system. Thank You.");
+			break label2;
+		}
+		else
+		{
+			System.out.println("Please enter valid choice");
+			continue label1;
+		}
+		}
+		}
 
 	}
 
 	@Override
 	public void displayAddOn() {
-		ArrayList<AddOn> addOn=new ArrayList<>();
+		ArrayList<AddOn> addOn = new ArrayList<>();
 		try {
-			
-			addOn=employeeServiceImpl.addON();
+
+			addOn = employeeServiceImpl.addON();
 		} catch (ClassNotFoundException e) {
 			System.out.println(e.getMessage());
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
-			System.out.println(addOn);
-		
-		System.out.println("Enter the id of Add On you want to have");
-		String addOnId=scan.next();
-		try {
-			String result=employeeServiceImpl.searchAddOn(addOnId);
-			if(result==null)
-			{
-				System.out.println("Add On Id Does Not exist!!");
+		while (true) {
+			for(AddOn add:addOn)
+				System.out.println(add);
+
+			System.out.println("Enter the id of Add On you want to have");
+			String addOnId = scan.next();
+			System.out.println("Enter the quantity :");
+			int quantity=scan.nextInt();
+			try {
+			
+				boolean result=employeeServiceImpl.buyAddOn(addOnId, quantity);
+				if (result == false) {
+					System.out.println("Add on not available.\n Please get yourself something else");
+					continue;
+					
+				} else {
+					
+					System.out.println("Thank you!! Charges will be added to your account.");
+				} 
+				
+			} catch (ClassNotFoundException | SQLException e) {
+				System.out.println("Some error has occured");
+				System.out.println(e.getMessage());
 			}
-			else if(result.equals("Add On Available"))
-			{
-				System.out.println("Add On Available bill will be updated to monthly food expense");
+			System.out.println("Do you want anything else?? (Y/N)");
+			String choice = scan.next();
+			if (choice.equalsIgnoreCase("Y"))
+				continue;
+			else if (choice.equalsIgnoreCase("N"))
+				break;
+			else {
+				System.out.println("Please enter a valid option.");
+				continue;
 			}
-			else
-			{
-				System.out.println("Add on not available");
-			}
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			System.out.println("Some error has occured");
 		}
-		
-		
+
 	}
-	
+
 }

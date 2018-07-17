@@ -9,4 +9,5 @@ public interface AddOnDao {
 	boolean insertAddOn(AddOn addon)throws ClassNotFoundException, SQLException;
 	AddOn searchAddOn(String addOnId)throws ClassNotFoundException, SQLException;
 	boolean deleteAddOn(String addOnId)throws ClassNotFoundException, SQLException;
+	boolean outputAddOn(String addOnId,int quantity) throws ClassNotFoundException, SQLException;
 }
