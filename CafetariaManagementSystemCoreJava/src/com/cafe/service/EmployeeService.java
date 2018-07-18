@@ -21,4 +21,5 @@ public interface EmployeeService
 	int searchAddOn(String addOnId) throws ClassNotFoundException, SQLException;
 	Menu displayMenu() throws ClassNotFoundException, SQLException;
 	boolean buyAddOn(String addOnId,int quantity) throws ClassNotFoundException, SQLException;
+	int monthlyFoodExpense(String ein) throws ClassNotFoundException, SQLException;
 }

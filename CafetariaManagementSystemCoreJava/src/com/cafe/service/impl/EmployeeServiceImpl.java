@@ -106,4 +106,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 		
 			
 		}
+		@Override
+		public int monthlyFoodExpense(String ein) throws ClassNotFoundException, SQLException {
+			
+			return employeeDaoImpl.employeeFoodExpense(ein);
+		}
 }

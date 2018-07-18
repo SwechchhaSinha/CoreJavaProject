@@ -109,7 +109,8 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 						boolean ans = employeeServiceImpl.signupEmployee(emp);
 						if (ans) {
 							System.out.println("Successfully Created Account");
-							System.out.println("Start your first session ");
+							System.out.println("Please login to continue");
+							displayInitialMenu();
 
 							break;
 						} else {
@@ -254,6 +255,7 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 		System.out.println("Press 3 to update stock");
 		System.out.println("Press 4 to update menu");
 		System.out.println("Press 5 to take out stock");
+		System.out.println("Press 6 to sign out from the System");
 		try {
 			choice = scan.nextInt();
 		} catch (InputMismatchException exception) {
@@ -287,6 +289,10 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 			break;
 		case 5:
 			stockManagerUiImpl1.outputStock();
+			break;
+		case 6:
+			System.out.println("You have successfully logged out of the system");
+			System.exit(0);
 		}
 		label1:while(true)
 		{

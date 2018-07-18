@@ -14,5 +14,6 @@ public interface EmployeeDao
 	boolean updateEmployee(String ein,String value) throws SQLException, ClassNotFoundException;
 	boolean updateEmployee(String columnName, int value) throws SQLException, ClassNotFoundException;
 	boolean insertEmployee(Employee employee) throws ClassNotFoundException, SQLException;
+	int employeeFoodExpense(String ein)throws ClassNotFoundException, SQLException;
 	
 }
