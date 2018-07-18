@@ -71,6 +71,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 		}
 		public void totalMonthlyExpense(String ein) throws ClassNotFoundException, SQLException{
 			Employee currentEmployee= employeeDaoImpl.searchEmployee(ein);
-			employeeDaoImpl.updateEmployee(ein, currentEmployee.getMonthlyFoodExpense());
+			employeeDaoImpl.updateEmployee(ein, currentEmployee.getMonthlyFoodExpense()+100);
 		} 
 }
