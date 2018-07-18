@@ -26,9 +26,9 @@ public class StockManagerServiceImpl implements StockManagerService {
 	MenuDaoImpl menuDaoImpl = new MenuDaoImpl();
 
 	@Override
-	public boolean inputStock(Food food, int price, String date) throws ClassNotFoundException, SQLException {
+	public boolean inputStock(Food food, int price, LocalDate date) throws ClassNotFoundException, SQLException {
 		boolean status1 = foodDaoImpl.insertFood(food);
-		LocalDate date1 = LocalDate.parse(date);// Change
+		LocalDate date1 = LocalDate.now();// Change
 		Transaction t = new Transaction(date1, food.getF_id(), food.getQuantity(), price);
 		System.out.println(t);
 		boolean status2 = transactionDaoImpl.insertTransaction(t);

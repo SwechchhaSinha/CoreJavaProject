@@ -109,4 +109,18 @@ public class EmployeeDaoImpl implements EmployeeDao{
 			return true;
 	}
 
+	@Override
+	public int employeeFoodExpense(String ein) throws ClassNotFoundException, SQLException {
+		Connection conn=ConnectionHelper.getConnection();
+		PreparedStatement statement=conn.prepareStatement("Select monthly_food_expenses where ein=?");
+		statement.setString(1, ein);
+		int monhtlyExpenditure=0;
+		ResultSet rs=statement.executeQuery();
+		while(rs.next())
+		{
+			monhtlyExpenditure=rs.getInt(1);
+		}
+		return monhtlyExpenditure;
+	}
+
 }

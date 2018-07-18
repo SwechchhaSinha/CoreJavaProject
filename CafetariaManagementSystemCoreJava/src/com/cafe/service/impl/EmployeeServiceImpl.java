@@ -88,24 +88,37 @@ public class EmployeeServiceImpl implements EmployeeService {
 			return listAllAddOn;
 		}
 		@Override
-		public int searchAddOn(String addOnId) throws ClassNotFoundException, SQLException
+		public AddOn searchAddOn(String addOnId) throws ClassNotFoundException, SQLException
 		{
 			AddOn addOn=addOnDaoImpl.searchAddOn(addOnId);
-			if (addOn.equals(null))
-				return 0;
-			return addOn.getAddOnQuantity();
+
+			return addOn;
 		}
 		@Override
-		public boolean buyAddOn(String addOnId, int quantity) throws ClassNotFoundException, SQLException {
-			if(searchAddOn(addOnId)>=quantity)
+		public int buyAddOn(String addOnId, int quantity) throws ClassNotFoundException, SQLException {
+		
+			AddOn a=searchAddOn(addOnId);
+		if(a.equals(null))
+		{
+			return 1;
+		}
+		else
+		{
+			int q=a.getAddOnQuantity();
+			if(q<quantity)
+				return 2;
+			else
 			{
 				addOnDaoImpl.outputAddOn(addOnId, quantity);
-				return true;
+				return 0;
 			}
-			else
-				return false;
-				
-		
+		}
+	
 			
+		}
+		@Override
+		public int monthlyFoodExpense(String ein) throws ClassNotFoundException, SQLException {
+			
+			return employeeDaoImpl.employeeFoodExpense(ein);
 		}
 }

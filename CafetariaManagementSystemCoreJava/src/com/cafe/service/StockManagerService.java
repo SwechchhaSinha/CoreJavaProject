@@ -17,7 +17,7 @@ public interface StockManagerService {
 
 	List<Food> displayFood(String category) throws ClassNotFoundException, SQLException;
 
-	boolean inputStock(Food food, int price, String date) throws ClassNotFoundException, SQLException;
+	boolean inputStock(Food food, int price, LocalDate date) throws ClassNotFoundException, SQLException;
 
 	//boolean updateStock(String foodId, int quantity, int price, String date)
 //			throws ClassNotFoundException, SQLException;

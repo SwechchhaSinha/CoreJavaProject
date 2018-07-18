@@ -128,15 +128,20 @@ public class AddOnDaoImpl implements AddOnDao{
 	{
 		Connection conn = ConnectionHelper.getConnection();
 		PreparedStatement statement = conn.prepareStatement("Update addOn set addonquantity=? where addOnId=?");
-		statement.setInt(1,(searchAddOn(addOnId.toUpperCase()).getAddOnQuantity())-quantity);
-		statement.setString(2, addOnId.toUpperCase());
+
+		AddOn a=searchAddOn(addOnId);
+//		if(a.equals(null))
+//			return false;
+//		else
+//		{
+		statement.setInt(1,(a.getAddOnQuantity())-quantity);
+		statement.setString(2, addOnId);
+
 
 		int rows = statement.executeUpdate();
+		return true;
+		//}
 
-		if (rows <= 0)
-			return false;
-		else
-			return true;
 	}
 
 }
