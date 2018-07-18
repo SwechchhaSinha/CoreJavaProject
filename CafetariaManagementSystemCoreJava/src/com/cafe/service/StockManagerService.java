@@ -3,10 +3,12 @@ package com.cafe.service;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.cafe.beans.Food;
 import com.cafe.beans.Menu;
+import com.cafe.beans.Transaction;
 
 public interface StockManagerService {
 
@@ -30,5 +32,7 @@ public interface StockManagerService {
 	boolean updateStock(String foodId, int quantity, int price, LocalDate date1)
 			throws ClassNotFoundException, SQLException;
 
+
 	boolean generateReport(LocalDate date) throws ClassNotFoundException, SQLException, IOException;
+
 }

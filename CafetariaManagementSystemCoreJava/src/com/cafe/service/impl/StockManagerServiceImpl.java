@@ -23,13 +23,13 @@ import com.cafe.dao.impl.TransactionDaoImpl;
 public class StockManagerServiceImpl implements StockManagerService {
 	FoodDaoImpl foodDaoImpl = new FoodDaoImpl();
 	TransactionDaoImpl transactionDaoImpl = new TransactionDaoImpl();
-	MenuDaoImpl menuDaoImpl=new MenuDaoImpl();
+	MenuDaoImpl menuDaoImpl = new MenuDaoImpl();
 
 	@Override
 	public boolean inputStock(Food food, int price, String date) throws ClassNotFoundException, SQLException {
 		boolean status1 = foodDaoImpl.insertFood(food);
-		LocalDate date1=LocalDate.parse(date);//Change
-		Transaction t=new Transaction(date1, food.getF_id(), food.getQuantity(), price);
+		LocalDate date1 = LocalDate.parse(date);// Change
+		Transaction t = new Transaction(date1, food.getF_id(), food.getQuantity(), price);
 		System.out.println(t);
 		boolean status2 = transactionDaoImpl.insertTransaction(t);
 		if (status1 == true && status2 == true)
@@ -42,8 +42,8 @@ public class StockManagerServiceImpl implements StockManagerService {
 			throws ClassNotFoundException, SQLException {
 		boolean status1 = foodDaoImpl.updateFoodQuantity(foodId,
 				foodDaoImpl.searchFood(foodId).getQuantity() + quantity);
-		Date date=Date.valueOf(date1);
-		
+		Date date = Date.valueOf(date1);
+
 		boolean status2 = transactionDaoImpl.insertTransaction(new Transaction(date1, foodId, quantity, price));
 		if (status1 == true && status2 == true)
 			return true;
@@ -52,31 +52,30 @@ public class StockManagerServiceImpl implements StockManagerService {
 	}
 
 	@Override
-	public String outputStock(String foodId, int quantity) throws ClassNotFoundException, SQLException
-	{
-		int currentQuantity=foodDaoImpl.searchFood(foodId).getQuantity();
-		if(quantity<=currentQuantity)
-		{
-			boolean status1 = foodDaoImpl.updateFoodQuantity(foodId,currentQuantity-quantity);
-			
-//		if(foodDaoImpl.searchFood(foodId).getQuantity()<=foodDaoImpl.searchFood(foodId).getThreshold())
-//		{
-//			return "Food remaining is less than threhsold please refill it";
-//		}
-		return "You can take the food item";
+	public String outputStock(String foodId, int quantity) throws ClassNotFoundException, SQLException {
+		int currentQuantity = foodDaoImpl.searchFood(foodId).getQuantity();
+		if (quantity <= currentQuantity) {
+			boolean status1 = foodDaoImpl.updateFoodQuantity(foodId, currentQuantity - quantity);
+
+			// if(foodDaoImpl.searchFood(foodId).getQuantity()<=foodDaoImpl.searchFood(foodId).getThreshold())
+			// {
+			// return "Food remaining is less than threhsold please refill it";
+			// }
+			return "You can take the food item";
 		}
-		
 
 		else
 			return "Sufficient stock not present!!";
 	}
+
 	@Override
-	public boolean updateMenu(Menu menu) throws ClassNotFoundException, SQLException
-	{
+	public boolean updateMenu(Menu menu) throws ClassNotFoundException, SQLException {
 		return menuDaoImpl.updateMenu(menu);
-			
+
 	}
+
 	@Override
+
 	public boolean generateReport(LocalDate date) throws ClassNotFoundException, SQLException, IOException
 	{
 		ArrayList<Transaction> transactions=transactionDaoImpl.searchTransaction(date);
@@ -95,12 +94,12 @@ public class StockManagerServiceImpl implements StockManagerService {
 		}
 		else
 			return false;
-				
+
 	}
 
 	@Override
 	public List<Food> displayFood() throws ClassNotFoundException, SQLException {
-		return(foodDaoImpl.listAllFood());
+		return (foodDaoImpl.listAllFood());
 	}
 
 	@Override
@@ -111,7 +110,7 @@ public class StockManagerServiceImpl implements StockManagerService {
 
 	@Override
 	public boolean deleteStock(String foodId) throws ClassNotFoundException, SQLException {
-		
+
 		return foodDaoImpl.deleteFood(foodId);
 	}
 }
