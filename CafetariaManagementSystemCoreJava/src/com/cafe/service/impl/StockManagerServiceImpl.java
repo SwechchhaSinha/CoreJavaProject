@@ -77,9 +77,11 @@ public class StockManagerServiceImpl implements StockManagerService {
 			
 	}
 	@Override
-	public void generateReport(LocalDate date) throws ClassNotFoundException, SQLException, IOException
+	public boolean generateReport(LocalDate date) throws ClassNotFoundException, SQLException, IOException
 	{
 		ArrayList<Transaction> transactions=transactionDaoImpl.searchTransaction(date);
+		if(!transactions.isEmpty())
+		{
 		
 		File report=new File("Report_"+date);
 		FileOutputStream fileOutputStream=new FileOutputStream(report);
@@ -89,6 +91,10 @@ public class StockManagerServiceImpl implements StockManagerService {
 			System.out.println(t);
 			stream.writeChars(t.toString());
 		}
+		return true;
+		}
+		else
+			return false;
 				
 	}
 

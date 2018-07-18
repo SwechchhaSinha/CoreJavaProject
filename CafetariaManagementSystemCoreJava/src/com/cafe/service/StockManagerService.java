@@ -30,5 +30,5 @@ public interface StockManagerService {
 	boolean updateStock(String foodId, int quantity, int price, LocalDate date1)
 			throws ClassNotFoundException, SQLException;
 
-	void generateReport(LocalDate date) throws ClassNotFoundException, SQLException, IOException;
+	boolean generateReport(LocalDate date) throws ClassNotFoundException, SQLException, IOException;
 }

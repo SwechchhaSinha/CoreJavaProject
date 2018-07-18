@@ -120,7 +120,13 @@ public class StockManagerUiImpl implements StockManagerUi {
 		String fDate = sc.next();
 		if (fDate.matches("\\d{4}-\\d{2}-\\d{2}")) {
 			LocalDate date=LocalDate.parse(fDate);
-		stockManagerServiceImpl.generateReport(date);
+		boolean status=stockManagerServiceImpl.generateReport(date);
+		if(status)
+		{
+			System.out.println("Report generated!!!");
+		}
+		else
+			System.out.println("No transactions available for the provided date!!");
 		}
 		else
 		{
