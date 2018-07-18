@@ -1,13 +1,18 @@
 package com.cafe.ui.impl;
 
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import com.cafe.beans.Food;
+import com.cafe.beans.Transaction;
 import com.cafe.service.impl.StockManagerServiceImpl;
 import com.cafe.ui.StockManagerUi;
 
@@ -116,11 +121,25 @@ public class StockManagerUiImpl implements StockManagerUi {
 		
 	}
 	public void generateReport() throws ClassNotFoundException, SQLException, IOException{
+		ArrayList<Transaction> transactionList=new ArrayList<>();
 		System.out.println("Enter date in yyyy-mm-dd");
 		String fDate = sc.next();
 		if (fDate.matches("\\d{4}-\\d{2}-\\d{2}")) {
 			LocalDate date=LocalDate.parse(fDate);
-		stockManagerServiceImpl.generateReport(date);
+		 transactionList=stockManagerServiceImpl.generateReport(date);
+		 if(transactionList==null)
+			 System.out.println("No record exist for this date");
+		 else
+		 {
+			 File report=new File("Report_"+date);
+				FileOutputStream fileOutputStream=new FileOutputStream(report);
+				DataOutputStream stream=new DataOutputStream(fileOutputStream);
+			 for(Transaction t:transactionList)
+				{
+					System.out.println(t);
+					stream.writeChars(t.toString());
+				}
+		 }
 		}
 		else
 		{
