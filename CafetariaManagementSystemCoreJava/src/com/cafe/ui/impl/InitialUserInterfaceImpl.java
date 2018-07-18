@@ -60,6 +60,7 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 					employee = employeeServiceImpl.searchEmployee(ein);
 					String optStatus = employee.getHasOpted();
 					System.out.println(correctLoginCredentials);
+					
 					displayMenu();
 					haveFood(optStatus, ein);
 
@@ -140,6 +141,7 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 
 	@Override
 	public void displayMenu() {
+		System.out.println("TODAY'S MENU:");
 		Menu menu;
 		try {
 			menu = employeeServiceImpl.displayMenu();
@@ -154,21 +156,23 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 	public void haveFood(String str, String ein) {
 		if (str.equalsIgnoreCase("y")) {
 			
-			while (true) {
+		while (true)
+		{
 				System.out.println("Would you like to have ice cream/cold drink?? (Chargeable)");
-				System.out.println("1. Yes");
-				System.out.println("2. No");
-				int choice = scan.nextInt();
-				if (choice == 1) {
+				System.out.println("Press 1 for Yes");
+				System.out.println("Press 2 for No");
+				String choice = scan.next();
+				if (choice.equalsIgnoreCase("1")) {
 					displayAddOn();
 					System.out.println("Enjoy your Food!!");
 					break;
-				} else if (choice == 2) {
+				} else if (choice.equalsIgnoreCase("2")) {
 					System.out.println("Enjoy your lunch!!");
 					break;
 				} else {
 					System.out.println("You haven't entered a valid option. Please try again.");
 					continue;
+//					continue loopForAddOn;
 				}
 			}
 		} else {
@@ -330,7 +334,7 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 			int quantity=scan.nextInt();
 			try {
 			
-				boolean result=employeeServiceImpl.buyAddOn(addOnId, quantity);
+				boolean result=employeeServiceImpl.buyAddOn(addOnId.toUpperCase(), quantity);
 				if (result == false) {
 					System.out.println("Add on not available.\n Please get yourself something else");
 					continue;
@@ -344,15 +348,18 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 				System.out.println("Some error has occured");
 				System.out.println(e.getMessage());
 			}
-			System.out.println("Do you want anything else?? (Y/N)");
-			String choice = scan.next();
-			if (choice.equalsIgnoreCase("Y"))
-				continue;
-			else if (choice.equalsIgnoreCase("N"))
-				break;
-			else {
-				System.out.println("Please enter a valid option.");
-				continue;
+//			loopForAnythingElse:
+			while(true){	
+				System.out.println("Do you want anything else?? (Y/N)");
+				String choice = scan.next();
+				if (choice.equalsIgnoreCase("Y"))
+					continue;
+				else if (choice.equalsIgnoreCase("N"))
+					break;
+				else {
+					System.out.println("Please enter a valid option.");
+					continue;
+				}
 			}
 		}
 
