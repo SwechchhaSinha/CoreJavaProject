@@ -43,7 +43,7 @@ public class Food {
 	}
 	@Override
 	public String toString() {
-		return "Food Id=" + f_id + ", Food Name=" + f_name + ", Category=" + category + ", Quantity=" + quantity ;
+		return  String.format("%-10s|", f_id) + String.format("%-15s|", f_name) + String.format("%-15s|", category) + String.format("%-10d|", quantity) ;
 	}
 	
 

@@ -75,13 +75,26 @@ public class StockManagerServiceImpl implements StockManagerService {
 	}
 
 	@Override
-	public ArrayList<Transaction> generateReport(LocalDate date)
-			throws ClassNotFoundException, SQLException, IOException {
-		ArrayList<Transaction> transactions = transactionDaoImpl.searchTransaction(date);
-		if (date.isAfter(LocalDate.of(2018, 07, 10)))
-			return transactions;
+
+	public boolean generateReport(LocalDate date) throws ClassNotFoundException, SQLException, IOException
+	{
+		ArrayList<Transaction> transactions=transactionDaoImpl.searchTransaction(date);
+		if(!transactions.isEmpty())
+		{
+		
+		File report=new File("Report_"+date);
+		FileOutputStream fileOutputStream=new FileOutputStream(report);
+		DataOutputStream stream=new DataOutputStream(fileOutputStream);
+		for(Transaction t:transactions)
+		{
+			System.out.println(t);
+			stream.writeChars(t.toString());
+		}
+		return true;
+		}
 		else
-			return null;
+			return false;
+
 	}
 
 	@Override

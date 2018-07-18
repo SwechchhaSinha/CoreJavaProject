@@ -65,6 +65,7 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 
 				} else {
 					System.out.println(correctLoginCredentials);
+					displayInitialMenu();
 				}
 			} catch (InputMismatchException | ClassNotFoundException | SQLException e) {
 
@@ -174,6 +175,7 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 			while(true)
 			{
 			int ans = wantToOpt();
+			
 			if (ans == 1) {
 				System.out.println("Enjoy your lunch!!");
 				System.out.println("Would you like to have ice cream/cold drink?? (Chargeable)\nPress 1 to continue else press any other no.");
@@ -209,6 +211,7 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 					System.out.println("Thank you for coming!! You have been logged out!!!");
 				break;
 			}
+			
 			else
 			{
 				System.out.println("Please enter a valid choice!!");
@@ -226,11 +229,15 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 		System.out.println(" Would you like to have lunch? (Chargeable)");
 		System.out.println("1. Yes");
 		System.out.println("2. No");
-
+		
 		try {
 			choice = scan.nextInt();
-		} catch (InputMismatchException excep) {
-			System.out.println("1. Please enter a valid input");
+			
+		} catch (Exception excep) {
+
+			System.out.println("Please enter a valid input");
+			scan.next();
+			return -1;
 		}
 
 		return choice;

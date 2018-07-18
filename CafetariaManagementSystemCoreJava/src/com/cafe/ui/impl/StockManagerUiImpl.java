@@ -126,20 +126,30 @@ public class StockManagerUiImpl implements StockManagerUi {
 		String fDate = sc.next();
 		if (fDate.matches("\\d{4}-\\d{2}-\\d{2}")) {
 			LocalDate date=LocalDate.parse(fDate);
-		 transactionList=stockManagerServiceImpl.generateReport(date);
-		 if(transactionList==null)
-			 System.out.println("No record exist for this date");
-		 else
-		 {
-			 File report=new File("Report_"+date);
-				FileOutputStream fileOutputStream=new FileOutputStream(report);
-				DataOutputStream stream=new DataOutputStream(fileOutputStream);
-			 for(Transaction t:transactionList)
-				{
-					System.out.println(t);
-					stream.writeChars(t.toString());
-				}
-		 }
+//<<<<<<< HEAD
+//		 transactionList=stockManagerServiceImpl.generateReport(date);
+//		 if(transactionList==null)
+//			 System.out.println("No record exist for this date");
+//		 else
+//		 {
+//			 File report=new File("Report_"+date);
+//				FileOutputStream fileOutputStream=new FileOutputStream(report);
+//				DataOutputStream stream=new DataOutputStream(fileOutputStream);
+//			 for(Transaction t:transactionList)
+//				{
+//					System.out.println(t);
+//					stream.writeChars(t.toString());
+//				}
+//		 }
+//=======
+		boolean status=stockManagerServiceImpl.generateReport(date);
+		if(status)
+		{
+			System.out.println("Report generated!!!");
+		}
+		else
+			System.out.println("No transactions available for the provided date!!");
+
 		}
 		else
 		{
