@@ -17,7 +17,7 @@ public class StockManagerUiImpl1 {
 		ArrayList<String> menuList = new ArrayList<>();
 		for (int i = 1; i <= 8; i++) {
 			System.out.println("Enter dish " + i);
-			menuList.add(sc.nextLine());
+			menuList.add(sc.next());
 		}
 
 		Menu menu = new Menu(menuList, day);
@@ -35,7 +35,7 @@ public class StockManagerUiImpl1 {
 	}
 	public void outputStock()
 	{
-		boolean status=false;
+		//boolean status=false;
 		System.out.println("Enter food Id of the needed stock item");
 		String fId=sc.next();
 		System.out.println("Enter the quantity");

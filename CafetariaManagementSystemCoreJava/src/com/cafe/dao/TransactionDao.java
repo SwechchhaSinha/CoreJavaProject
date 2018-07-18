@@ -1,6 +1,7 @@
 package com.cafe.dao;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,5 +12,9 @@ public interface TransactionDao {
 	
 	
 
-	ArrayList<Transaction> searchTransaction(String transaction_date) throws ClassNotFoundException, SQLException;
+	//ArrayList<Transaction> searchTransaction(String transaction_date) throws ClassNotFoundException, SQLException;
+
+
+
+	ArrayList<Transaction> searchTransaction(LocalDate transaction_date) throws ClassNotFoundException, SQLException;
 }

@@ -32,7 +32,14 @@ public class Menu {
 
 	@Override
 	public String toString() {
-		return "Menu [menuArrayList=" + menuArrayList + ", menuCurrentDay=" + menuCurrentDay + "]";
+		return String.format("%-15s|",menuArrayList.get(0))+"\n"+
+				String.format("%-15s|",menuArrayList.get(1))+"\n"+
+				String.format("%-15s|",menuArrayList.get(2))+"\n"+
+				String.format("%-15s|",menuArrayList.get(3))+"\n"+
+				String.format("%-15s|",menuArrayList.get(4))+"\n"+
+				String.format("%-15s|",menuArrayList.get(5))+"\n"+
+				String.format("%-15s|",menuArrayList.get(6))+"\n"+
+				String.format("%-15s|",menuArrayList.get(7)) ;
 	}
 	
 	

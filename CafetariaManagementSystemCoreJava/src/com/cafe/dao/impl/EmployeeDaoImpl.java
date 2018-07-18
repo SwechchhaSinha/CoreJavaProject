@@ -40,7 +40,10 @@ public class EmployeeDaoImpl implements EmployeeDao{
 		Connection conn=ConnectionHelper.getConnection();
 		PreparedStatement statement=conn.prepareStatement("select * from employee where ein=?");
 		statement.setString(1, id);
+		
 		ResultSet rs=statement.executeQuery();
+		if(rs==null)
+			return null;
 		Employee employee=null;
 		while(rs.next())
 		{
@@ -58,9 +61,10 @@ public class EmployeeDaoImpl implements EmployeeDao{
 	@Override
 	public boolean insertEmployee(Employee employee) throws ClassNotFoundException, SQLException 
 	{
+		System.out.println(employee);
 		Connection conn=ConnectionHelper.getConnection();
 		PreparedStatement statement=conn.prepareStatement("Insert into employee"
-				+ "values(?,?,?,?,?)");
+				+ " values(?,?,?,?,?)");
 		
 		statement.setString(1, employee.getEIN());
 		statement.setString(2, employee.getEmployeeName());
@@ -93,7 +97,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
 	@Override
 	public boolean updateEmployee(String ein, int value) throws SQLException, ClassNotFoundException {
 		Connection conn=ConnectionHelper.getConnection();
-		PreparedStatement statement=conn.prepareStatement("update  employee set monthly_food_expense=? where ein=?");
+		PreparedStatement statement=conn.prepareStatement("update  employee set monthly_food_expenses=? where ein=?");
 		statement.setInt(1, value);
 		statement.setString(2, ein);
 		

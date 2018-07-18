@@ -1,11 +1,16 @@
 package com.cafe.service.impl;
 
+
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.TimeZone;
 
+import com.cafe.beans.AddOn;
 import com.cafe.beans.Employee;
 import com.cafe.beans.Menu;
+import com.cafe.dao.impl.AddOnDaoImpl;
 import com.cafe.dao.impl.EmployeeDaoImpl;
 import com.cafe.dao.impl.MenuDaoImpl;
 import com.cafe.helper.LoginHelper;
@@ -13,13 +18,14 @@ import com.cafe.service.EmployeeService;
 
 public class EmployeeServiceImpl implements EmployeeService {
 	EmployeeDaoImpl employeeDaoImpl=new EmployeeDaoImpl();
+	AddOnDaoImpl addOnDaoImpl=new AddOnDaoImpl();
 	@Override
-	public boolean Login(String employeeEin, String password) 
+	public String Login(String employeeEin, String password) 
 			throws ClassNotFoundException, SQLException
 	{
 		LoginHelper login=new LoginHelper();
-		boolean ans=login.Login(employeeEin, password);
-		return ans;
+		return login.Login(employeeEin, password);
+		
 	}
 	@Override
 	public Employee searchEmployee(String employeeId) throws ClassNotFoundException, SQLException
@@ -32,15 +38,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 			return employee;
 	}
 	@Override
-	public Menu displayMenu(String employeeId) throws ClassNotFoundException, SQLException
+	public Menu displayMenu() throws ClassNotFoundException, SQLException
 	{
-		//EmployeeDaoImpl employeeDaoImpl=new EmployeeDaoImpl();
-		Employee employee=new Employee();
-		employee=employeeDaoImpl.searchEmployee(employeeId);
+	
 		Menu menu=new Menu();
 		Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
 		int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-		String day="Day_"+dayOfWeek;
+		
+		String day="Day "+(dayOfWeek-1);
 		MenuDaoImpl menuDaoImpl=new MenuDaoImpl();
 		menu=menuDaoImpl.searchMenu(day);
 		return menu;
@@ -51,10 +56,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 		//EmployeeDaoImpl employeeDaoImpl=new EmployeeDaoImpl();
 		Employee myEmployee=new Employee();
 		myEmployee=employeeDaoImpl.searchEmployee(employee.getEIN());
+		//System.out.println(myEmployee);
 		if(myEmployee==null)
 		{
-			employeeDaoImpl.insertEmployee(employee);
-			return true;
+			return employeeDaoImpl.insertEmployee(employee);
 		}
 		else
 		{
@@ -65,12 +70,42 @@ public class EmployeeServiceImpl implements EmployeeService {
 	///Rahul's 
 		//EmployeeDaoImpl employeeDaoImpl = new EmployeeDaoImpl();
 		static int receiptNo = 0;
-		public void generateReceiptNo(String ein) throws ClassNotFoundException, SQLException{
+		public int generateReceiptNo(String ein) throws ClassNotFoundException, SQLException{
 //			Employee currentEmployee= employeeDaoImpl.searchEmployee(ein);
-			System.out.println("Thank you for coming! Your Receipt no. is: " +  ++receiptNo);
+			return ++receiptNo;
 		}
-		public void totalMonthlyExpense(String ein) throws ClassNotFoundException, SQLException{
+		public boolean totalMonthlyExpense(String ein) throws ClassNotFoundException, SQLException{
 			Employee currentEmployee= employeeDaoImpl.searchEmployee(ein);
-			employeeDaoImpl.updateEmployee(ein, currentEmployee.getMonthlyFoodExpense()+100);
+
+			return employeeDaoImpl.updateEmployee(ein, currentEmployee.getMonthlyFoodExpense());
+
 		} 
+		
+		@Override
+		public ArrayList<AddOn> addON() throws ClassNotFoundException, SQLException {
+			// TODO Auto-generated method stub
+			ArrayList<AddOn>listAllAddOn=addOnDaoImpl.listAllAddOn();
+			return listAllAddOn;
+		}
+		@Override
+		public int searchAddOn(String addOnId) throws ClassNotFoundException, SQLException
+		{
+			AddOn addOn=addOnDaoImpl.searchAddOn(addOnId);
+			if (addOn.equals(null))
+				return 0;
+			return addOn.getAddOnQuantity();
+		}
+		@Override
+		public boolean buyAddOn(String addOnId, int quantity) throws ClassNotFoundException, SQLException {
+			if(searchAddOn(addOnId)>=quantity)
+			{
+				addOnDaoImpl.outputAddOn(addOnId, quantity);
+				return true;
+			}
+			else
+				return false;
+				
+		
+			
+		}
 }

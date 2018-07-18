@@ -15,7 +15,7 @@ import com.cafe.helper.ConnectionHelper;
 public class AddOnDaoImpl implements AddOnDao{
 
 	@Override
-	public List<AddOn> listAllAddOn() throws ClassNotFoundException, SQLException {
+	public ArrayList<AddOn> listAllAddOn() throws ClassNotFoundException, SQLException {
 		Connection conn=ConnectionHelper.getConnection();
 		Statement statement=conn.createStatement();
 		ArrayList<AddOn> addOnList=new ArrayList<>();
@@ -37,7 +37,7 @@ public class AddOnDaoImpl implements AddOnDao{
 	public List<AddOn> listAllAddOn(String addOnCategory) throws ClassNotFoundException, SQLException {
 		Connection conn=ConnectionHelper.getConnection();
 		PreparedStatement pstatement=conn.prepareStatement("Select * from AddOn where category = ?");
-		pstatement.setString(0, addOnCategory);
+		pstatement.setString(1, addOnCategory);
 		ArrayList<AddOn> addOnList=new ArrayList<>();
 		AddOn addon = null;
 		ResultSet rs=pstatement.executeQuery();
@@ -91,7 +91,7 @@ public class AddOnDaoImpl implements AddOnDao{
 	@Override
 	public AddOn searchAddOn(String addOnId) throws ClassNotFoundException, SQLException {
 		Connection conn = ConnectionHelper.getConnection();
-		PreparedStatement statement = conn.prepareStatement("Select * from addOn where addOnId_id=?");
+		PreparedStatement statement = conn.prepareStatement("Select * from addOn where addOnid=?");
 		statement.setString(1, addOnId);
 		AddOn addon = null;
 		ResultSet rs = statement.executeQuery();
@@ -111,9 +111,25 @@ public class AddOnDaoImpl implements AddOnDao{
 	@Override
 	public boolean deleteAddOn(String addOnId)throws ClassNotFoundException, SQLException {
 		Connection conn = ConnectionHelper.getConnection();
-		PreparedStatement statement = conn.prepareStatement("delete from addOn where addOnId_id=?");
+		PreparedStatement statement = conn.prepareStatement("delete from addOn where addOnId=?");
 
 		statement.setString(1, addOnId);
+
+		int rows = statement.executeUpdate();
+
+		if (rows <= 0)
+			return false;
+		else
+			return true;
+	}
+
+	@Override
+	public boolean outputAddOn(String addOnId, int quantity)throws ClassNotFoundException, SQLException
+	{
+		Connection conn = ConnectionHelper.getConnection();
+		PreparedStatement statement = conn.prepareStatement("Update addOn set addonquantity=? where addOnId=?");
+		statement.setInt(1,(searchAddOn(addOnId).getAddOnQuantity())-quantity);
+		statement.setString(2, addOnId);
 
 		int rows = statement.executeUpdate();
 

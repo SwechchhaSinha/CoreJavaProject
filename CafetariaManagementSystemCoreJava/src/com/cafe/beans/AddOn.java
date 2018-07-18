@@ -14,7 +14,9 @@ public class AddOn {
 		this.addOnPrice = addOnPrice;
 		this.addOnQuantity = addOnQuantity;
 		this.addOnName = addOnName;
+		this.addOnCategory=addOnCategory;
 	}
+
 	public String getAddOnId() {
 		return addOnId;
 	}
@@ -47,8 +49,8 @@ public class AddOn {
 	}
 	@Override
 	public String toString() {
-		return "AddOn [addOnId=" + addOnId + ", addOnPrice=" + addOnPrice + ", addOnQuantity=" + addOnQuantity
-				+ ", addOnName=" + addOnName + ", addOnCategory=" + addOnCategory + "]";
+		return String.format("%-10s|", addOnId)+  String.format("%-25s|", addOnName)+String.format("%-15s|", addOnCategory)  + String.format("%-7d|", addOnQuantity)
+				+ String.format("%s%-10d|","Rs. ",addOnPrice)  ;
 	}
 	
 	

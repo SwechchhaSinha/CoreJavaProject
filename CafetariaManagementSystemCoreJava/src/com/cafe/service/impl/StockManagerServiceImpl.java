@@ -5,8 +5,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.cafe.beans.Food;
 import com.cafe.beans.Menu;
@@ -25,19 +28,23 @@ public class StockManagerServiceImpl implements StockManagerService {
 	@Override
 	public boolean inputStock(Food food, int price, String date) throws ClassNotFoundException, SQLException {
 		boolean status1 = foodDaoImpl.insertFood(food);
-		boolean status2 = transactionDaoImpl
-				.insertTransaction(new Transaction(date, food.getF_id(), food.getQuantity(), price));
+		LocalDate date1=LocalDate.parse(date);//Change
+		Transaction t=new Transaction(date1, food.getF_id(), food.getQuantity(), price);
+		System.out.println(t);
+		boolean status2 = transactionDaoImpl.insertTransaction(t);
 		if (status1 == true && status2 == true)
 			return true;
 		return false;
 	}
 
 	@Override
-	public boolean updateStock(String foodId, int quantity, int price, String date)
+	public boolean updateStock(String foodId, int quantity, int price, LocalDate date1)
 			throws ClassNotFoundException, SQLException {
 		boolean status1 = foodDaoImpl.updateFoodQuantity(foodId,
 				foodDaoImpl.searchFood(foodId).getQuantity() + quantity);
-		boolean status2 = transactionDaoImpl.insertTransaction(new Transaction(date, foodId, quantity, price));
+		Date date=Date.valueOf(date1);
+		
+		boolean status2 = transactionDaoImpl.insertTransaction(new Transaction(date1, foodId, quantity, price));
 		if (status1 == true && status2 == true)
 			return true;
 		return false;
@@ -70,27 +77,41 @@ public class StockManagerServiceImpl implements StockManagerService {
 			
 	}
 	@Override
-	public void generateReport(String date) throws ClassNotFoundException, SQLException, IOException
+	public boolean generateReport(LocalDate date) throws ClassNotFoundException, SQLException, IOException
 	{
 		ArrayList<Transaction> transactions=transactionDaoImpl.searchTransaction(date);
+		if(!transactions.isEmpty())
+		{
+		
 		File report=new File("Report_"+date);
 		FileOutputStream fileOutputStream=new FileOutputStream(report);
 		DataOutputStream stream=new DataOutputStream(fileOutputStream);
 		for(Transaction t:transactions)
 		{
+			System.out.println(t);
 			stream.writeChars(t.toString());
 		}
+		return true;
+		}
+		else
+			return false;
 				
 	}
 
 	@Override
-	public void displayFood() throws ClassNotFoundException, SQLException {
-		foodDaoImpl.listAllFood();
+	public List<Food> displayFood() throws ClassNotFoundException, SQLException {
+		return(foodDaoImpl.listAllFood());
 	}
 
 	@Override
-	public void displayFood(String category) throws ClassNotFoundException, SQLException {
-		foodDaoImpl.listAllFood(category);
+	public List<Food> displayFood(String category) throws ClassNotFoundException, SQLException {
+		return foodDaoImpl.listAllFood(category);
 
+	}
+
+	@Override
+	public boolean deleteStock(String foodId) throws ClassNotFoundException, SQLException {
+		
+		return foodDaoImpl.deleteFood(foodId);
 	}
 }

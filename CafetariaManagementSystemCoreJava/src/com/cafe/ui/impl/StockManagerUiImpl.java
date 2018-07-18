@@ -1,7 +1,10 @@
 package com.cafe.ui.impl;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 
 import com.cafe.beans.Food;
@@ -18,19 +21,27 @@ public class StockManagerUiImpl implements StockManagerUi {
 		int choice = sc.nextInt();
 		switch(choice){
 		case 1:
-			stockManagerServiceImpl.displayFood();
+			List<Food> foodList=stockManagerServiceImpl.displayFood();
+			for(Food food:foodList)
+			{
+				System.out.println(food);
+			}
 			break;
 		case 2:
 			System.out.println("Enter categroy: ");
 			String category = sc.next();
-			stockManagerServiceImpl.displayFood(category);
+			List<Food> foodList1=stockManagerServiceImpl.displayFood(category);
+			for(Food food:foodList1)
+			{
+				System.out.println(food);
+			}
 			break;
 		default:
 			System.out.println("Please enter the right choice.");
 		}
 		
 	}
-	public void updateStock() throws ClassNotFoundException, SQLException{
+	public void updateStock(){
 		System.out.println("1. Insert new stock"
 				+ "2. Update Existing stock"
 				+ "3. Delete Existing stock");
@@ -41,7 +52,7 @@ public class StockManagerUiImpl implements StockManagerUi {
 				System.out.println("Enter Food_Id");
 				String fId = sc.next();
 				System.out.println("Enter food name");
-				String fName  = sc.nextLine();
+				String fName  = sc.next();
 				System.out.println("Enter food category");
 				String fCategory = sc.next();
 				System.out.println("Enter food quantity");
@@ -51,7 +62,12 @@ public class StockManagerUiImpl implements StockManagerUi {
 				int fPrice = sc.nextInt();
 				System.out.println("Enter date in yyyy-mm-dd");
 				String fDate = sc.next();
+			try {
 				status = stockManagerServiceImpl.inputStock(food, fPrice, fDate);
+			} catch (ClassNotFoundException | SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 				if(status)
 					System.out.println("Stock inserted successfully");
 				else
@@ -66,7 +82,14 @@ public class StockManagerUiImpl implements StockManagerUi {
 				fPrice = sc.nextInt();
 				System.out.println("Enter date in yyyy-mm-dd");
 				fDate = sc.next();
-				status = stockManagerServiceImpl.updateStock(fId, fQty, fPrice, fDate);
+				LocalDate date=LocalDate.parse(fDate);
+			try {
+				
+				status = stockManagerServiceImpl.updateStock(fId, fQty, fPrice, date);
+			} catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 				if(status)
 					System.out.println("Stock updated successfully");
 				else
@@ -75,7 +98,12 @@ public class StockManagerUiImpl implements StockManagerUi {
 			case 3:
 				System.out.println("Enter Food_Id");
 				fId = sc.next();
-//				status = smsi.deleteStock(fId); under construction
+			try {
+				status = stockManagerServiceImpl.deleteStock(fId);
+			} catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 				if(status)
 					System.out.println("Stock deleted successfully");
 				else
@@ -90,7 +118,20 @@ public class StockManagerUiImpl implements StockManagerUi {
 	public void generateReport() throws ClassNotFoundException, SQLException, IOException{
 		System.out.println("Enter date in yyyy-mm-dd");
 		String fDate = sc.next();
-		stockManagerServiceImpl.generateReport(fDate);
+		if (fDate.matches("\\d{4}-\\d{2}-\\d{2}")) {
+			LocalDate date=LocalDate.parse(fDate);
+		boolean status=stockManagerServiceImpl.generateReport(date);
+		if(status)
+		{
+			System.out.println("Report generated!!!");
+		}
+		else
+			System.out.println("No transactions available for the provided date!!");
+		}
+		else
+		{
+			System.out.println("Please enter date in the specified format!!");
+		}
 	}
 
 }
