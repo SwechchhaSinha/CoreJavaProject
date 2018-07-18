@@ -334,15 +334,24 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 			String addOnId = scan.next();
 			System.out.println("Enter the quantity :");
 			int quantity=scan.nextInt();
+			if(quantity <=0)
+			{
+				System.out.println("Enter valid quantity");
+				continue;
+			}
 			try {
 			
-				boolean result=employeeServiceImpl.buyAddOn(addOnId, quantity);
-				if (result == false) {
-					System.out.println("Add on not available.\n Please get yourself something else");
+				int result=employeeServiceImpl.buyAddOn(addOnId, quantity);
+				if (result == 2) {
+					System.out.println("This much quantity is not available of the specified item");
 					continue;
 					
-				} else {
-					
+				} 
+				else if(result==1)
+					{
+					System.out.println("Please enter Id from the specified menu");
+					}
+				else {
 					System.out.println("Thank you!! Charges will be added to your account.");
 				} 
 				

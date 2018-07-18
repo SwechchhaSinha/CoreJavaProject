@@ -18,8 +18,12 @@ public interface EmployeeService
 	String Login(String employeeEin, String password) throws ClassNotFoundException, SQLException;
 	Employee searchEmployee(String employeeId) throws ClassNotFoundException, SQLException;
 	public ArrayList<AddOn> addON() throws ClassNotFoundException, SQLException;
-	int searchAddOn(String addOnId) throws ClassNotFoundException, SQLException;
+	AddOn searchAddOn(String addOnId) throws ClassNotFoundException, SQLException;
 	Menu displayMenu() throws ClassNotFoundException, SQLException;
-	boolean buyAddOn(String addOnId,int quantity) throws ClassNotFoundException, SQLException;
+
+	//boolean buyAddOn(String addOnId,int quantity) throws ClassNotFoundException, SQLException;
 	int monthlyFoodExpense(String ein) throws ClassNotFoundException, SQLException;
+
+	int buyAddOn(String addOnId,int quantity) throws ClassNotFoundException, SQLException;
+
 }
