@@ -27,6 +27,12 @@ public class StockManagerUiImpl implements StockManagerUi {
 		int choice = sc.nextInt();
 		switch (choice) {
 		case 1:
+			System.out.println("Present Stock:");
+			System.out.println(String.format("%-10s|", "FOOD_ID") + 
+				String.format("%-15s|", "NAME") + String.format("%-15s|", "CATEGORY") 
+				+ String.format("%-10s|", "QUANTITY"));
+			System.out.println("------------------------------------------------------");
+			
 			List<Food> foodList = stockManagerServiceImpl.displayFood();
 			for (Food food : foodList) {
 				System.out.println(food);
@@ -52,6 +58,11 @@ public class StockManagerUiImpl implements StockManagerUi {
 					System.out.println("Please enter a valid choice");
 					continue;
 				}
+				System.out.println("Present "+category+" stock:");
+				System.out.println(String.format("%-10s|", "FOOD_ID") + 
+						String.format("%-15s|", "NAME") + String.format("%-15s|", "CATEGORY") 
+						+ String.format("%-10s|", "QUANTITY"));
+					System.out.println("------------------------------------------------------");
 				List<Food> foodList1 = stockManagerServiceImpl.displayFood(category);
 				for (Food food : foodList1) {
 					System.out.println(food);

@@ -49,7 +49,7 @@ public class AddOn {
 	}
 	@Override
 	public String toString() {
-		return String.format("%-10s|", addOnId)+  String.format("%-25s|", addOnName)+String.format("%-15s|", addOnCategory)  + String.format("%-7d|", addOnQuantity)
+		return String.format("%-10s|", addOnId)+  String.format("%-25s|", addOnName)+String.format("%-15s|", addOnCategory)  + String.format("%-10d|", addOnQuantity)
 				+ String.format("%s%-10d|","Rs. ",addOnPrice)  ;
 	}
 	

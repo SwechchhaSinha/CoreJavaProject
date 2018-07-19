@@ -331,6 +331,12 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 		}
 		outerLoop:
 		while (true) {
+			System.out.println("Addon Menu:");
+			
+			System.out.println(String.format("%-10s|", "ADDONID")+  String.format("%-25s|", "NAME")
+			+String.format("%-15s|", "CATEGORY")  + String.format("%-10s|", "QUANTITY")
+			+ String.format("%-10s|","PRICE"));
+			System.out.println("----------------------------------------------------------------------");
 			for (AddOn add : addOn)
 				System.out.println(add);
 			System.out.println("Enter the id of Add On you want to have");
