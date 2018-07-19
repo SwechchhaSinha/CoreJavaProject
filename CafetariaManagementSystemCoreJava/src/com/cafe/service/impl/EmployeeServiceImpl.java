@@ -99,7 +99,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 		
 			AddOn a=searchAddOn(addOnId);
 			
-		if((a.getAddOnId()).equals(null))
+			
+		if(a.getAddOnId()==null)
 		{
 			return 1;
 		}
