@@ -74,10 +74,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 //			Employee currentEmployee= employeeDaoImpl.searchEmployee(ein);
 			return ++receiptNo;
 		}
-		public boolean totalMonthlyExpense(String ein) throws ClassNotFoundException, SQLException{
+		@Override
+		public boolean totalMonthlyExpense(String ein,int price) throws ClassNotFoundException, SQLException{
 			Employee currentEmployee= employeeDaoImpl.searchEmployee(ein);
-
-			return employeeDaoImpl.updateEmployee(ein, currentEmployee.getMonthlyFoodExpense());
+			int tprice=currentEmployee.getMonthlyFoodExpense()+price;
+			return employeeDaoImpl.updateEmployee(ein,tprice );
 
 		} 
 		

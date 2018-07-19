@@ -16,11 +16,22 @@ public class StockManagerUiImpl1 {
 	public void updateMenu() {
 		boolean status=false;
 		System.out.println("Enter the day for which you want to update menu");
-		String day = sc.next();
+		System.out.println("Day 1");
+		System.out.println("Day 2");
+		System.out.println("Day 3");
+		System.out.println("Day 4");
+		System.out.println("Day 5");
+		System.out.println("Day 6");
+		String day = sc.nextLine();
+		if(!(day.equalsIgnoreCase("day 1")||day.equalsIgnoreCase("day 2")||day.equalsIgnoreCase("day 3")||day.equalsIgnoreCase("day 4")||day.equalsIgnoreCase("day 5")||day.equalsIgnoreCase("day 6")))
+		{
+			System.out.println("Please enter a day from the given list");
+			updateMenu();
+		}
 		ArrayList<String> menuList = new ArrayList<>();
 		for (int i = 1; i <= 8; i++) {
 			System.out.println("Enter dish " + i);
-			menuList.add(sc.nextLine());
+			menuList.add(sc.next());
 		}
 
 		Menu menu = new Menu(menuList, day);

@@ -14,7 +14,7 @@ public interface EmployeeService
 	
 	public boolean signupEmployee(Employee employee) throws ClassNotFoundException, SQLException;
 	public int generateReceiptNo(String ein) throws ClassNotFoundException, SQLException;
-	public boolean totalMonthlyExpense(String ein)throws ClassNotFoundException, SQLException;
+	public boolean totalMonthlyExpense(String ein,int price)throws ClassNotFoundException, SQLException;
 	String Login(String employeeEin, String password) throws ClassNotFoundException, SQLException;
 	Employee searchEmployee(String employeeId) throws ClassNotFoundException, SQLException;
 	public ArrayList<AddOn> addON() throws ClassNotFoundException, SQLException;

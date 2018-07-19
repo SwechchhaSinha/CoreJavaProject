@@ -152,7 +152,6 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 			menu = employeeServiceImpl.displayMenu();
 			System.out.println(menu);
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -163,15 +162,36 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 			
 			while (true) {
 				System.out.println("Would you like to have ice cream/cold drink?? (Chargeable)");
-				System.out.println("1. Yes");
-				System.out.println("2. No");
+				System.out.println("Enter 1 to choose Add Ons");
+				System.out.println("Enter 2 to continue with food");
 				int choice = scan.nextInt();
 				if (choice == 1) {
-					displayAddOn();
+					int price=displayAddOn();
+					boolean status;
+					try {
+						status = employeeServiceImpl.totalMonthlyExpense(ein,price);
+						if (status == true) {
+							System.out.println("Cost of food added to monthly expense!!");
+							System.out.println("Your total monthly expense till now for this month = Rs "+employeeServiceImpl.monthlyFoodExpense(ein) );
+						} else {
+							System.out.println("Sorry , please try again!");
+						}
+					} catch (ClassNotFoundException | SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+					
 					System.out.println("Enjoy your Food!!");
 					break;
 				} else if (choice == 2) {
 					System.out.println("Enjoy your lunch!!");
+					try {
+						System.out.println("Your total monthly expense till now for this month = Rs "+employeeServiceImpl.monthlyFoodExpense(ein) );
+					} catch (ClassNotFoundException | SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					break;
 				} else {
 					System.out.println("You haven't entered a valid option. Please try again.");
@@ -182,22 +202,23 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 			while(true)
 			{
 			int ans = wantToOpt();
-			
+			int price=0;
 			if (ans == 1) {
 				System.out.println("Enjoy your lunch!!");
 				System.out.println("Would you like to have ice cream/cold drink?? (Chargeable)\nPress 1 to continue else press any other no.");
 				int ch = scan.nextInt();
 				if (ch == 1)
-					displayAddOn();
+					price=displayAddOn();
 				else 
 					System.out.println("You haven't taken any additional item. Your reciept for lunch is generated.");
 				try {
 					int recieptNo = employeeServiceImpl.generateReceiptNo(ein);
-					boolean status = employeeServiceImpl.totalMonthlyExpense(ein);
+					boolean status = employeeServiceImpl.totalMonthlyExpense(ein,price+50);
 
 					if (status == true) {
 						System.out.println("Thank you for coming! Your Receipt no. is: " + recieptNo);
 						System.out.println("Cost of food added to monthly expense!!");
+						System.out.println("Your total monthly expense till now for this month = Rs "+employeeServiceImpl.monthlyFoodExpense(ein) );
 					} else {
 						System.out.println("Sorry , please try again!");
 					}
@@ -320,9 +341,11 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 		}
 
 	}
-
+	 
 	@Override
-	public void displayAddOn() {
+	public int displayAddOn() {
+		int totalPrice=0;
+		int price=0;
 		ArrayList<AddOn> addOn = new ArrayList<>();
 		try {
 
@@ -342,9 +365,14 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 			System.out.println("----------------------------------------------------------------------");
 			for (AddOn add : addOn)
 				System.out.println(add);
-
 			System.out.println("Enter the id of Add On you want to have");
 			String addOnId = scan.next();
+			try {
+				price=employeeServiceImpl.searchAddOn(addOnId).getAddOnPrice();
+			} catch (ClassNotFoundException | SQLException e1) {
+				// TODO Auto-generated catch block
+				System.out.println("An error has occured please try again!!");
+			}
 			System.out.println("Enter the quantity :");
 			int quantity=scan.nextInt();
 			if(quantity <=0)
@@ -354,7 +382,7 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 			}
 			try {
 			
-				int result=employeeServiceImpl.buyAddOn(addOnId, quantity);
+				int result=employeeServiceImpl.buyAddOn(addOnId.toUpperCase(), quantity);
 				if (result == 2) {
 					System.out.println("This much quantity is not available of the specified item");
 					continue;
@@ -365,7 +393,8 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 					System.out.println("Please enter Id from the specified menu");
 					}
 				else {
-					System.out.println("Thank you!! Charges will be added to your account.");
+					totalPrice+=quantity*price;
+					
 				} 
 				
 			} catch (ClassNotFoundException | SQLException e) {
@@ -383,7 +412,8 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 				continue;
 			}
 		}
-
+		System.out.println("Thank you!! Rs "+totalPrice+" will be added to your account.");
+		return totalPrice;
 	}
 
 }

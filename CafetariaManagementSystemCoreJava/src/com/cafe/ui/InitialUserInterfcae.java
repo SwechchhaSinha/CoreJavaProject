@@ -9,6 +9,6 @@ public interface InitialUserInterfcae
 	void displayMenuForStock();
 	int wantToOpt();
 	//void displayMenu(Menu menu, String str, String ein);
-	void displayAddOn();
+	int displayAddOn();
 	void displayMenu();
 }
