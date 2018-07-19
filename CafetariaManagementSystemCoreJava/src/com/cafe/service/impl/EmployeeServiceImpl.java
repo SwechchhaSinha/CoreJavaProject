@@ -76,7 +76,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 		}
 		public boolean totalMonthlyExpense(String ein) throws ClassNotFoundException, SQLException{
 			Employee currentEmployee= employeeDaoImpl.searchEmployee(ein);
+
 			return employeeDaoImpl.updateEmployee(ein, currentEmployee.getMonthlyFoodExpense());
+
 		} 
 		
 		@Override
@@ -96,7 +98,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 		public int buyAddOn(String addOnId, int quantity) throws ClassNotFoundException, SQLException {
 		
 			AddOn a=searchAddOn(addOnId);
-		if(a.equals(null))
+			
+			
+		if(a.getAddOnId()==null)
 		{
 			return 1;
 		}

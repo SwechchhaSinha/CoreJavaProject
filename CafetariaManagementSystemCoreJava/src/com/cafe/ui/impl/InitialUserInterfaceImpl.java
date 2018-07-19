@@ -66,6 +66,7 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 					employee = employeeServiceImpl.searchEmployee(ein);
 					String optStatus = employee.getHasOpted();
 					System.out.println(correctLoginCredentials);
+
 					displayMenu();
 					haveFood(optStatus, ein);
 
@@ -147,6 +148,7 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 
 	@Override
 	public void displayMenu() {
+		System.out.println("TODAY'S MENU:");
 		Menu menu;
 		try {
 			menu = employeeServiceImpl.displayMenu();
@@ -160,72 +162,72 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 
 	public void haveFood(String str, String ein) {
 		if (str.equalsIgnoreCase("y")) {
-			
+
 			while (true) {
 				System.out.println("Would you like to have ice cream/cold drink?? (Chargeable)");
-				System.out.println("1. Yes");
-				System.out.println("2. No");
-				int choice = scan.nextInt();
-				if (choice == 1) {
+				System.out.println("Press 1 for Yes");
+				System.out.println("Press 2 for No");
+				String choice = scan.next();
+				if (choice.equalsIgnoreCase("1")) {
 					displayAddOn();
 					System.out.println("Enjoy your Food!!");
 					break;
-				} else if (choice == 2) {
+				} else if (choice.equalsIgnoreCase("2")) {
 					System.out.println("Enjoy your lunch!!");
 					break;
 				} else {
 					System.out.println("You haven't entered a valid option. Please try again.");
 					continue;
+					// continue loopForAddOn;
 				}
 			}
 		} else {
-			while(true)
-			{
-			int ans = wantToOpt();
-			
-			if (ans == 1) {
-				System.out.println("Enjoy your lunch!!");
-				System.out.println("Would you like to have ice cream/cold drink?? (Chargeable)\nPress 1 to continue else press any other no.");
-				int ch = scan.nextInt();
-				if (ch == 1)
-					displayAddOn();
-				else 
-					System.out.println("You haven't taken any additional item. Your reciept for lunch is generated.");
-				try {
-					int recieptNo = employeeServiceImpl.generateReceiptNo(ein);
-					boolean status = employeeServiceImpl.totalMonthlyExpense(ein);
+			while (true) {
+				int ans = wantToOpt();
 
-					if (status == true) {
-						System.out.println("Thank you for coming! Your Receipt no. is: " + recieptNo);
-						System.out.println("Cost of food added to monthly expense!!");
-					} else {
-						System.out.println("Sorry , please try again!");
+				if (ans == 1) {
+					System.out.println("Enjoy your lunch!!");
+					System.out.println(
+							"Would you like to have ice cream/cold drink?? (Chargeable)\nPress 1 to continue else press any other no.");
+					int ch = scan.nextInt();
+					if (ch == 1)
+						displayAddOn();
+					else
+						System.out
+								.println("You haven't taken any additional item. Your reciept for lunch is generated.");
+					try {
+						int recieptNo = employeeServiceImpl.generateReceiptNo(ein);
+						boolean status = employeeServiceImpl.totalMonthlyExpense(ein);
+
+						if (status == true) {
+							System.out.println("Thank you for coming! Your Receipt no. is: " + recieptNo);
+							System.out.println("Cost of food added to monthly expense!!");
+						} else {
+							System.out.println("Sorry , please try again!");
+						}
+
+					} catch (ClassNotFoundException | SQLException e) {
+
+						System.out.println("Error : " + e.getMessage());
 					}
-
-				} catch (ClassNotFoundException | SQLException e) {
-
-					System.out.println("Error : " + e.getMessage());
+					break;
+				} else if (ans == 2) {
+					System.out
+							.println("Would you like to have ice cream/cold drink?? (Chargeable)\nPress 1 to continue");
+					int ch = scan.nextInt();
+					if (ch == 1)
+						displayAddOn();
+					else
+						System.out.println("Thank you for coming!! You have been logged out!!!");
+					break;
 				}
-				break;
+
+				else {
+					System.out.println("Please enter a valid choice!!");
+					continue;
+				}
 			}
-			else if(ans==2)
-			{
-				System.out.println("Would you like to have ice cream/cold drink?? (Chargeable)\nPress 1 to continue");
-				int ch = scan.nextInt();
-				if (ch == 1)
-					displayAddOn();
-				else
-					System.out.println("Thank you for coming!! You have been logged out!!!");
-				break;
-			}
-			
-			else
-			{
-				System.out.println("Please enter a valid choice!!");
-				continue;
-			}
-			}	
-				
+
 		}
 	}
 
@@ -236,10 +238,10 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 		System.out.println(" Would you like to have lunch? (Chargeable)");
 		System.out.println("1. Yes");
 		System.out.println("2. No");
-		
+
 		try {
 			choice = scan.nextInt();
-			
+
 		} catch (Exception excep) {
 
 			System.out.println("Please enter a valid input");
@@ -252,71 +254,66 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 
 	@Override
 	public void displayMenuForStock() {
-		label2:while(true)
-		{
-		int choice = 0;
-		System.out.println("Welcome to the Cafeteria Management System");
-		System.out.println("Press 1 to view stock.");
-		System.out.println("Press 2 to generate report of daily transactions");
-		System.out.println("Press 3 to update stock");
-		System.out.println("Press 4 to update menu");
-		System.out.println("Press 5 to take out stock");
-		System.out.println("Press 6 to sign out from the System");
-		try {
-			choice = scan.nextInt();
-		} catch (InputMismatchException exception) {
-			System.out.println("Please enter a valid input");
-		}
-		switch (choice) {
-		case 1:
+		label2: while (true) {
+			int choice = 0;
+			System.out.println("Welcome to the Cafeteria Management System");
+			System.out.println("Press 1 to view stock.");
+			System.out.println("Press 2 to generate report of daily transactions");
+			System.out.println("Press 3 to update stock");
+			System.out.println("Press 4 to update menu");
+			System.out.println("Press 5 to take out stock");
+			System.out.println("Press 6 to sign out from the System");
 			try {
-				stockManagerUiImpl.displayStock();
-			} catch (ClassNotFoundException | SQLException e) {
-
-				System.out.println("Error : " + e.getMessage());
+				choice = scan.nextInt();
+			} catch (InputMismatchException exception) {
+				System.out.println("Please enter a valid input");
 			}
-			break;
-		case 2:
+			switch (choice) {
+			case 1:
+				try {
+					stockManagerUiImpl.displayStock();
+				} catch (ClassNotFoundException | SQLException e) {
 
-			try {
-				stockManagerUiImpl.generateReport();
-			} catch (ClassNotFoundException | SQLException | IOException e) {
+					System.out.println("Error : " + e.getMessage());
+				}
+				break;
+			case 2:
 
-				System.out.println("Error : " + e.getMessage());
+				try {
+					stockManagerUiImpl.generateReport();
+				} catch (ClassNotFoundException | SQLException | IOException e) {
+
+					System.out.println("Error : " + e.getMessage());
+				}
+				break;
+			case 3:
+
+				stockManagerUiImpl.updateStock();
+
+				break;
+			case 4:
+				stockManagerUiImpl1.updateMenu();
+				break;
+			case 5:
+				stockManagerUiImpl1.outputStock();
+				break;
+			case 6:
+				System.out.println("You have successfully logged out of the system");
+				System.exit(0);
 			}
-			break;
-		case 3:
-
-			stockManagerUiImpl.updateStock();
-
-			break;
-		case 4:
-			stockManagerUiImpl1.updateMenu();
-			break;
-		case 5:
-			stockManagerUiImpl1.outputStock();
-			break;
-		case 6:
-			System.out.println("You have successfully logged out of the system");
-			System.exit(0);
-		}
-		label1:while(true)
-		{
-		System.out.println("Do you want to continue??? (Y/N)");
-		String ch=scan.next();
-		if(ch.equalsIgnoreCase("y"))
-			continue label2;
-		else if(ch.equalsIgnoreCase("n"))	
-		{
-			System.out.println("You have been logged out of the system. Thank You.");
-			break label2;
-		}
-		else
-		{
-			System.out.println("Please enter valid choice");
-			continue label1;
-		}
-		}
+			label1: while (true) {
+				System.out.println("Do you want to continue??? (Y/N)");
+				String ch = scan.next();
+				if (ch.equalsIgnoreCase("y"))
+					continue label2;
+				else if (ch.equalsIgnoreCase("n")) {
+					System.out.println("You have been logged out of the system. Thank You.");
+					break label2;
+				} else {
+					System.out.println("Please enter valid choice");
+					continue label1;
+				}
+			}
 		}
 
 	}
@@ -332,48 +329,48 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
+		outerLoop:
 		while (true) {
-			for(AddOn add:addOn)
+			for (AddOn add : addOn)
 				System.out.println(add);
-
 			System.out.println("Enter the id of Add On you want to have");
 			String addOnId = scan.next();
 			System.out.println("Enter the quantity :");
-			int quantity=scan.nextInt();
-			if(quantity <=0)
-			{
+			int quantity = scan.nextInt();
+			if (quantity <= 0) {
 				System.out.println("Enter valid quantity");
 				continue;
 			}
 			try {
-			
-				int result=employeeServiceImpl.buyAddOn(addOnId, quantity);
+
+				int result = employeeServiceImpl.buyAddOn(addOnId.toUpperCase(), quantity);
 				if (result == 2) {
-					System.out.println("This much quantity is not available of the specified item");
+					System.out.println("This much quantity is not available of the specified item.Choose again");
 					continue;
-					
-				} 
-				else if(result==1)
-					{
+				} else if (result == 1) {
 					System.out.println("Please enter Id from the specified menu");
-					}
-				else {
+					continue;
+				} else {
 					System.out.println("Thank you!! Charges will be added to your account.");
-				} 
-				
+				}
+
 			} catch (ClassNotFoundException | SQLException e) {
 				System.out.println("Some error has occured");
 				System.out.println(e.getMessage());
 			}
-			System.out.println("Do you want anything else?? (Y/N)");
-			String choice = scan.next();
-			if (choice.equalsIgnoreCase("Y"))
-				continue;
-			else if (choice.equalsIgnoreCase("N"))
-				break;
-			else {
-				System.out.println("Please enter a valid option.");
-				continue;
+			// loopForAnythingElse:
+			innerLoop:
+			while (true) {
+				System.out.println("Do you want anything else?? (Y/N)");
+				String choice = scan.next();
+				if (choice.equalsIgnoreCase("Y"))
+					continue outerLoop;
+				else if (choice.equalsIgnoreCase("N"))
+					break outerLoop;
+				else {
+					System.out.println("Please enter a valid option.");
+					continue innerLoop;
+				}
 			}
 		}
 

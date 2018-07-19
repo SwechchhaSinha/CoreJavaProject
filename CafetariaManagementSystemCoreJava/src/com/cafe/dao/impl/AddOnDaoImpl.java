@@ -60,7 +60,7 @@ public class AddOnDaoImpl implements AddOnDao{
 		PreparedStatement pstatement = conn.prepareStatement("Update AddOn set addOnPrice = ?, addOnQuantity = ? where addOnId= ?");
 		pstatement.setInt(1, addOnPrice);
 		pstatement.setInt(2, addOnQuantity);
-		pstatement.setString(3, addOnId);
+		pstatement.setString(3, addOnId.toUpperCase());
 		int rows = pstatement.executeUpdate();
 		
 		if(rows <= 0)
@@ -74,7 +74,7 @@ public class AddOnDaoImpl implements AddOnDao{
 		Connection conn = ConnectionHelper.getConnection();
 		PreparedStatement statement = conn.prepareStatement("Insert into addOn" + "values(?,?,?,?,?)");
 
-		statement.setString(1, addon.getAddOnId());
+		statement.setString(1, addon.getAddOnId().toUpperCase());
 		statement.setString(2, addon.getAddOnName());
 		statement.setInt(3,addon.getAddOnPrice() );
 		statement.setInt(4,addon.getAddOnQuantity() );
@@ -93,7 +93,7 @@ public class AddOnDaoImpl implements AddOnDao{
 		Connection conn = ConnectionHelper.getConnection();
 		PreparedStatement statement = conn.prepareStatement("Select * from addOn where addOnid=?");
 		statement.setString(1, addOnId);
-		AddOn addon = null;
+		AddOn addon = new AddOn();
 		ResultSet rs = statement.executeQuery();
 		while (rs.next()) {
 			String addOnId1=rs.getString(1);
@@ -113,7 +113,7 @@ public class AddOnDaoImpl implements AddOnDao{
 		Connection conn = ConnectionHelper.getConnection();
 		PreparedStatement statement = conn.prepareStatement("delete from addOn where addOnId=?");
 
-		statement.setString(1, addOnId);
+		statement.setString(1, addOnId.toUpperCase());
 
 		int rows = statement.executeUpdate();
 
@@ -128,6 +128,7 @@ public class AddOnDaoImpl implements AddOnDao{
 	{
 		Connection conn = ConnectionHelper.getConnection();
 		PreparedStatement statement = conn.prepareStatement("Update addOn set addonquantity=? where addOnId=?");
+
 		AddOn a=searchAddOn(addOnId);
 //		if(a.equals(null))
 //			return false;
@@ -135,6 +136,7 @@ public class AddOnDaoImpl implements AddOnDao{
 //		{
 		statement.setInt(1,(a.getAddOnQuantity())-quantity);
 		statement.setString(2, addOnId);
+
 
 		int rows = statement.executeUpdate();
 		return true;
