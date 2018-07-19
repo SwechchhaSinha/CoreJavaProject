@@ -56,7 +56,7 @@ public class FoodDaoImpl implements FoodDao {
 		Connection conn = ConnectionHelper.getConnection();
 		PreparedStatement statement = conn.prepareStatement("Select * from food_item where food_id=?");
 		statement.setString(1, food_id);
-		Food food = null;
+		Food food = new Food();
 		ResultSet rs = statement.executeQuery();
 		while (rs.next()) {
 			String foodId = rs.getString(1);
