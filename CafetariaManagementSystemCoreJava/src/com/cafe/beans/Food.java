@@ -34,6 +34,10 @@ public class Food {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+	public Food()
+	{
+		
+	}
 	public Food(String f_id, String f_name, String category, int quantity) {
 		super();
 		this.f_id = f_id;

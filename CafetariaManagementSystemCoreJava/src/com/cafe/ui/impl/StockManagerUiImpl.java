@@ -35,7 +35,7 @@ public class StockManagerUiImpl implements StockManagerUi {
 		case 2:
 			while (true) {
 				int categoryChoice;
-				System.out.println("Enter categroy: ");
+				System.out.println("Enter category: ");
 				System.out.println("Enter 1 for Vegetable");
 				System.out.println("Enter 2 for Grains");
 				System.out.println("Enter 3 for Spices");
@@ -116,7 +116,7 @@ public class StockManagerUiImpl implements StockManagerUi {
 			fQty = sc.nextInt();
 			System.out.println("Enter price: ");
 			fPrice = sc.nextInt();
-			System.out.println("Enter date in yyyy-mm-dd");
+//			System.out.println("Enter date in yyyy-mm-dd");
 			LocalDate date = LocalDate.now();
 			try {
 
