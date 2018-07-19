@@ -98,7 +98,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 		public int buyAddOn(String addOnId, int quantity) throws ClassNotFoundException, SQLException {
 		
 			AddOn a=searchAddOn(addOnId);
-		if(a.equals(null))
+			
+		if((a.getAddOnId()).equals(null))
 		{
 			return 1;
 		}

@@ -93,7 +93,7 @@ public class AddOnDaoImpl implements AddOnDao{
 		Connection conn = ConnectionHelper.getConnection();
 		PreparedStatement statement = conn.prepareStatement("Select * from addOn where addOnid=?");
 		statement.setString(1, addOnId);
-		AddOn addon = null;
+		AddOn addon = new AddOn();
 		ResultSet rs = statement.executeQuery();
 		while (rs.next()) {
 			String addOnId1=rs.getString(1);
