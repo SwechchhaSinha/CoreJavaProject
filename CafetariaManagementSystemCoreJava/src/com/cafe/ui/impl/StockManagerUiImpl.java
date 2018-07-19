@@ -83,6 +83,10 @@ public class StockManagerUiImpl implements StockManagerUi {
 			System.out.println("Enter food name");
 			String fName = sc.next();
 			System.out.println("Enter food category");
+			System.out.println("Valid food category");
+			System.out.println("Vegetable");
+			System.out.println("Grains");
+			System.out.println("Spices");
 			String fCategory = sc.next();
 			int fQty=0,fPrice=0;
 			LocalDate fDate=LocalDate.now();
@@ -116,7 +120,7 @@ public class StockManagerUiImpl implements StockManagerUi {
 			fQty = sc.nextInt();
 			System.out.println("Enter price: ");
 			fPrice = sc.nextInt();
-//			System.out.println("Enter date in yyyy-mm-dd");
+
 			LocalDate date = LocalDate.now();
 			try {
 
