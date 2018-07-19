@@ -1,8 +1,6 @@
 package com.cafe.dao;
 
 import java.sql.SQLException;
-
-import com.cafe.beans.Food;
 import com.cafe.beans.Menu;
 
 public interface MenuDao 

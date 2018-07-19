@@ -34,11 +34,13 @@ public class StockManagerUiImpl implements StockManagerUi {
 			break;
 		case 2:
 			while (true) {
+				int categoryChoice;
 				System.out.println("Enter categroy: ");
 				System.out.println("Enter 1 for Vegetable");
 				System.out.println("Enter 2 for Grains");
 				System.out.println("Enter 3 for Spices");
-				int categoryChoice = sc.nextInt();
+				if(sc.hasNextInt())
+				{	categoryChoice = sc.nextInt();
 				String category = null; // Have to check for char input
 				if (categoryChoice == 1)
 					category = "Vegetable";
@@ -54,7 +56,13 @@ public class StockManagerUiImpl implements StockManagerUi {
 				for (Food food : foodList1) {
 					System.out.println(food);
 				}
-
+				}
+				else
+				{
+					System.out.println("Please enter a valid choice");
+					sc.next();
+					continue;
+				}
 				break;
 			}
 			break;

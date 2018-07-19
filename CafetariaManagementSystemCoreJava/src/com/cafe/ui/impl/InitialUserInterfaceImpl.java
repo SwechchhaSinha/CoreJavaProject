@@ -23,17 +23,23 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 
 	@Override
 	public void displayInitialMenu() {
-
+		while(true)
+		{
 		System.out.println("WELCOME TO GET JULY 2018 CAFETERIA MANAGEMENT SYSTEM : ");
 		System.out.println("1. Login as Employee/Stock Manager");
 		System.out.println("2. Sign Up");
 		System.out.println("3. Exit.");
-
+		int choice=0;
 		try {
-			int choice = scan.nextInt();
+			if(scan.hasNextInt())
+				choice= scan.nextInt();
+			else
+				scan.next();
 			performInitialAction(choice);
 		} catch (InputMismatchException excep) {
+			
 			System.out.println("Please enter a valid input");
+		}
 		}
 
 	}
