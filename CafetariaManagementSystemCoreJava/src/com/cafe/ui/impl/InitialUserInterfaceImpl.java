@@ -82,7 +82,7 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 		case 2:
 
 			System.out.println("To Sign Up please enter your EIN");
-			ein = scan.next();
+			ein = scan.next().toUpperCase();
 			try {
 				employee = employeeServiceImpl.searchEmployee(ein);
 			} catch (ClassNotFoundException | SQLException e) {
@@ -97,7 +97,7 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 					while (true) {
 						System.out.println("Do you want to avail monthly food facility? (Y/N)");
 
-						String str = scan.next();
+						String str = scan.next().toUpperCase();
 						if (str.equalsIgnoreCase("Y") || str.equalsIgnoreCase("N")) {
 							emp.setHasOpted(str);
 							break;
@@ -368,7 +368,7 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 			System.out.println("Enter the id of Add On you want to have");
 			String addOnId = scan.next();
 			try {
-				price=employeeServiceImpl.searchAddOn(addOnId).getAddOnPrice();
+				price=employeeServiceImpl.searchAddOn(addOnId.toUpperCase()).getAddOnPrice();
 			} catch (ClassNotFoundException | SQLException e1) {
 				// TODO Auto-generated catch block
 				System.out.println("An error has occured please try again!!");
@@ -390,9 +390,11 @@ public class InitialUserInterfaceImpl implements InitialUserInterfcae {
 				} 
 				else if(result==1)
 					{
+					
 					System.out.println("Please enter Id from the specified menu");
 					}
 				else {
+					System.out.println("Thank you charges will be added to your account!!");
 					totalPrice+=quantity*price;
 					
 				} 

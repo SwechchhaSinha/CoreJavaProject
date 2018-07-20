@@ -40,8 +40,13 @@ public class StockManagerServiceImpl implements StockManagerService {
 	@Override
 	public boolean updateStock(String foodId, int quantity, int price, LocalDate date1)
 			throws ClassNotFoundException, SQLException {
+		Food f=foodDaoImpl.searchFood(foodId);
+		if(f.getF_id()==null)
+		{
+			return false;
+		}
 		boolean status1 = foodDaoImpl.updateFoodQuantity(foodId,
-				foodDaoImpl.searchFood(foodId).getQuantity() + quantity);
+				f.getQuantity() + quantity);
 		Date date = Date.valueOf(date1);
 
 		boolean status2 = transactionDaoImpl.insertTransaction(new Transaction(date1, foodId, quantity, price));
@@ -92,7 +97,7 @@ public class StockManagerServiceImpl implements StockManagerService {
 		DataOutputStream stream=new DataOutputStream(fileOutputStream);
 		for(Transaction t:transactions)
 		{
-			System.out.println(t);
+			
 			stream.writeChars(t.toString());
 		}
 		return true;

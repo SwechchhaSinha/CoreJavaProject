@@ -40,8 +40,8 @@ Dish_8 varchar(30) );
 
 
 -----------------------INSERT FOR MENU--------------------------------------------------------------------------------------------------
-Insert INTO Menu VALUES('Day 1','Chapati','Rice','Moong Daal','Soya Chaap','Salad','Raita',null,null);
-Insert INTO Menu VALUES('Day 2','Chapati','Rice','Aloo Shimlamirch','Rajma','Salad','Raita',null,null);
+Insert INTO Menu VALUES('DAY 1','Chapati','Rice','Moong Daal','Soya Chaap','Salad','Raita','pickle','gulab jamun');
+Insert INTO Menu VALUES('DAY 2','Chapati','Rice','Aloo Shimlamirch','Rajma','Salad','Raita','Pickle','custard');
 Insert INTO Menu VALUES('Day 3','Chapati','Rice','Karela','Kheer','Salad','Raita','Chana Daal',null);
 Insert INTO Menu VALUES('Day 4','Chapati','Rice','Bhindi','Daal Makhni','Salad','Raita','Macroni',null);
 Insert INTO Menu VALUES('Day 5','Chapati','Rice','Tinde','Dhuli Udhah Daal','Salad','Raita','Shahi Paneer',null);

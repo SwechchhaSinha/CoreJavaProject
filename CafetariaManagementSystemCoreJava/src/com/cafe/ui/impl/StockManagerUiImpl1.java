@@ -23,6 +23,7 @@ public class StockManagerUiImpl1 {
 		System.out.println("Day 5");
 		System.out.println("Day 6");
 		String day = sc.nextLine();
+		
 		if(!(day.equalsIgnoreCase("day 1")||day.equalsIgnoreCase("day 2")||day.equalsIgnoreCase("day 3")||day.equalsIgnoreCase("day 4")||day.equalsIgnoreCase("day 5")||day.equalsIgnoreCase("day 6")))
 		{
 			System.out.println("Please enter a day from the given list");
@@ -33,6 +34,8 @@ public class StockManagerUiImpl1 {
 			System.out.println("Enter dish " + i);
 			menuList.add(sc.next());
 		}
+//		System.out.println("Press any key to finalize menu!");
+		
 
 		Menu menu = new Menu(menuList, day);
 		try {
@@ -45,6 +48,7 @@ public class StockManagerUiImpl1 {
 			System.out.println("Menu Updated!!!");
 		else 
 			System.out.println("Couldn't update Menu!!");
+		return;
 
 	}
 	public void outputStock()

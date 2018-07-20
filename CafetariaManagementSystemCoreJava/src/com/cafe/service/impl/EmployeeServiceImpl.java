@@ -45,7 +45,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
 		int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
 		
-		String day="Day "+(dayOfWeek-1);
+		String day="DAY "+(dayOfWeek-1);
 		MenuDaoImpl menuDaoImpl=new MenuDaoImpl();
 		menu=menuDaoImpl.searchMenu(day);
 		return menu;
